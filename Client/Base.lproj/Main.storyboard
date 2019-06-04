@@ -72,13 +72,53 @@
                     <view key="view" contentMode="scaleToFill" id="OHU-qY-e7x">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="91s-L0-LCs">
+                                <rect key="frame" x="20" y="157" width="374" height="470"/>
+                                <color key="backgroundColor" red="0.99942404029999998" green="0.98555368190000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Azx-JZ-BvJ">
+                                <rect key="frame" x="166.5" y="663" width="81" height="55"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                <state key="normal" title="Send"/>
+                                <connections>
+                                    <action selector="sendToGoogle:" destination="oj3-d8-qyT" eventType="touchUpInside" id="fh5-Bd-aSO"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GB0-52-S4l">
+                                <rect key="frame" x="364" y="157" width="30" height="38"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <state key="normal" title="✗">
+                                    <color key="titleColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="clearText:" destination="oj3-d8-qyT" eventType="touchUpInside" id="DBb-P7-Qxu"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Azx-JZ-BvJ" firstAttribute="top" secondItem="91s-L0-LCs" secondAttribute="bottom" constant="36" id="7Vi-ej-efC"/>
+                            <constraint firstItem="GB0-52-S4l" firstAttribute="trailing" secondItem="91s-L0-LCs" secondAttribute="trailing" id="BXZ-xF-aFh"/>
+                            <constraint firstItem="91s-L0-LCs" firstAttribute="top" secondItem="Vl7-xP-3W8" secondAttribute="top" constant="69" id="KVL-vD-bor"/>
+                            <constraint firstItem="GB0-52-S4l" firstAttribute="top" secondItem="91s-L0-LCs" secondAttribute="top" id="aNt-OM-pzj"/>
+                            <constraint firstItem="Vl7-xP-3W8" firstAttribute="bottom" secondItem="91s-L0-LCs" secondAttribute="bottom" constant="235" id="i1U-cX-7fa"/>
+                            <constraint firstItem="Azx-JZ-BvJ" firstAttribute="centerX" secondItem="Vl7-xP-3W8" secondAttribute="centerX" id="khd-XL-g8Z"/>
+                            <constraint firstItem="Vl7-xP-3W8" firstAttribute="trailing" secondItem="91s-L0-LCs" secondAttribute="trailing" constant="20" id="ooQ-4g-Nkm"/>
+                            <constraint firstItem="91s-L0-LCs" firstAttribute="leading" secondItem="Vl7-xP-3W8" secondAttribute="leading" constant="20" id="zcm-Ue-ADF"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="Vl7-xP-3W8"/>
                     </view>
+                    <connections>
+                        <outlet property="clearButton" destination="GB0-52-S4l" id="EtJ-Yl-V0B"/>
+                        <outlet property="poster" destination="91s-L0-LCs" id="kFN-mN-SvC"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AQv-BT-8ao" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1739" y="21"/>
+            <point key="canvasLocation" x="1737.68115942029" y="20.758928571428569"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="yCX-dG-HQK">

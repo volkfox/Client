@@ -33,7 +33,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if let session = params.first(where: { $0.name == "code" })?.value {
             print("session = \(session)")
-            let viewController = UIApplication.shared.keyWindow!.rootViewController as! ViewController
+            //let viewController = UIApplication.shared.keyWindow!.rootViewController as! ViewController
+            
+            let viewController = UIApplication.topViewController() as! ViewController
             viewController.session = session
             return true
         } else {
@@ -66,5 +68,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 
+}
+
+extension UIApplication {
+    class func topViewController(base: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
+        if let nav = base as? UINavigationController {
+            return topViewController(base: nav.visibleViewController)
+        }
+        if let tab = base as? UITabBarController {
+            if let selected = tab.selectedViewController {
+                return topViewController(base: selected)
+            }
+        }
+        if let presented = base?.presentedViewController {
+            return topViewController(base: presented)
+        }
+        return base
+    }
 }
 
