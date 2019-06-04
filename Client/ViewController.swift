@@ -34,6 +34,9 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     @IBOutlet weak var scannerView: QRScannerView! {
         didSet {
             scannerView.delegate = self
+            let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissQR(_:)))
+            scannerView.isUserInteractionEnabled = true
+            scannerView.addGestureRecognizer(gestureRecognizer)
         }
     }
     
@@ -54,12 +57,28 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         }
     }
     
+    @IBOutlet weak var brainstorm: UIImageView! {
+        didSet {
+            let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.launchStorm(_:)))
+            brainstorm.isUserInteractionEnabled = true
+            brainstorm.addGestureRecognizer(gestureRecognizer)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboard()
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
         scannerView.frame = CGRect.zero
+        
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(false)
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -70,6 +89,11 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         }
     }
     
+    @objc func launchStorm(_ sender: UITapGestureRecognizer) {
+        
+        self.transition()
+    }
+    
     
     @objc func launchCamera(_ sender: UITapGestureRecognizer) {
         print("tapped")
@@ -77,6 +101,22 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         scannerView.frame = UIScreen.main.bounds
         if !scannerView.isRunning {
             scannerView.startScanning()
+        }
+    }
+    
+    @objc func dismissQR (_ sender: UITapGestureRecognizer) {
+
+        if !scannerView.isRunning {
+            scannerView.stopScanning()
+        }
+        scannerView.frame = CGRect.zero
+    }
+    
+    func transition() {
+        
+        // some session code error checking needed here
+        if self.session.count == 6 {
+            self.performSegue(withIdentifier: "brainstorm", sender: self)
         }
     }
     
@@ -108,8 +148,15 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         
         if let input = sessionInput.text {
             self.session = input
+            self.transition()
         }
         return true
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "brainstorm", let viewController = segue.destination as? BrainStormController {
+            viewController.sessionID = self.session
+        }
     }
 }
 
@@ -130,4 +177,7 @@ extension UIViewController
         view.endEditing(true)
     }
 }
+
+
+
 
