@@ -13,11 +13,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    
+    internal func application(_ application: UIApplication,
+                     open url: URL,
+                     options: [UIApplication.OpenURLOptionsKey : Any] = [:]
+        ) -> Bool {
+        
+        // Determine who sent the URL.
+        let sendingAppID = options[.sourceApplication]
+        print("source application = \(sendingAppID ?? "Unknown")")
+        
+        // Process the URL.
+        guard let components = NSURLComponents(url: url, resolvingAgainstBaseURL: true),
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        return true
+            let params = components.queryItems else {
+                print("Invalid URL or session part missing")
+                return false
+        }
+        
+        if let session = params.first(where: { $0.name == "code" })?.value {
+            print("session = \(session)")
+            let viewController = UIApplication.shared.keyWindow!.rootViewController as! ViewController
+            viewController.session = session
+            return true
+        } else {
+            print("Session missing")
+            return false
+        }
     }
+    
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

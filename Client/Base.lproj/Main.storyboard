@@ -1,24 +1,121 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="OES-Ig-wa6">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Session Selector-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Client" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="bolt copy" translatesAutoresizingMaskIntoConstraints="NO" id="7Qf-YZ-zVy">
+                                <rect key="frame" x="71" y="150" width="273" height="195"/>
+                            </imageView>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="xb7-zO-0bT">
+                                <rect key="frame" x="52" y="511" width="310" height="58"/>
+                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="45"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no" spellCheckingType="no" keyboardType="alphabet" returnKeyType="go" textContentType="one-time-code"/>
+                            </textField>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="qr-code-sticker-by-Vexels" translatesAutoresizingMaskIntoConstraints="NO" id="hQx-MM-oXM">
+                                <rect key="frame" x="124" y="668" width="167" height="145"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8bE-8N-cpa" customClass="QRScannerView" customModule="Client" customModuleProvider="target">
+                                <rect key="frame" x="87" y="364" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.060399845242500305" green="0.82913386821746826" blue="0.86170071363449097" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="hQx-MM-oXM" secondAttribute="bottom" constant="49" id="57F-nT-ZUj"/>
+                            <constraint firstItem="hQx-MM-oXM" firstAttribute="top" secondItem="xb7-zO-0bT" secondAttribute="bottom" constant="99" id="5ZE-TT-QLh"/>
+                            <constraint firstItem="xb7-zO-0bT" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="52" id="7e6-fI-5sA"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="7Qf-YZ-zVy" secondAttribute="bottom" constant="517" id="Bax-yh-jc0"/>
+                            <constraint firstItem="xb7-zO-0bT" firstAttribute="centerX" secondItem="7Qf-YZ-zVy" secondAttribute="centerX" id="JTC-cs-Z1u"/>
+                            <constraint firstItem="7Qf-YZ-zVy" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="106" id="MBn-a6-0Qs"/>
+                            <constraint firstItem="7Qf-YZ-zVy" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="N7I-ty-hCP"/>
+                            <constraint firstItem="7Qf-YZ-zVy" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="71" id="bKd-ht-bR6"/>
+                            <constraint firstItem="hQx-MM-oXM" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="124" id="f5D-cB-Api"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="xb7-zO-0bT" secondAttribute="bottom" constant="293" id="glr-Yy-YAr"/>
+                            <constraint firstItem="hQx-MM-oXM" firstAttribute="centerX" secondItem="xb7-zO-0bT" secondAttribute="centerX" id="ybf-fY-Wbh"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Session Selector" id="FyI-ew-7fH"/>
+                    <connections>
+                        <outlet property="QRlauncher" destination="hQx-MM-oXM" id="e36-Vh-nvN"/>
+                        <outlet property="scannerView" destination="8bE-8N-cpa" id="Yj4-GT-jqs"/>
+                        <outlet property="sessionInput" destination="xb7-zO-0bT" id="Xh6-RQ-glY"/>
+                        <segue destination="oj3-d8-qyT" kind="show" identifier="brainstorm" id="3jf-W8-cqo"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="957.97101449275374" y="20.758928571428569"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="sj7-7G-UKs">
+            <objects>
+                <viewController id="oj3-d8-qyT" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="OHU-qY-e7x">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="Vl7-xP-3W8"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AQv-BT-8ao" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1739" y="21"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="yCX-dG-HQK">
+            <objects>
+                <viewController id="tYP-5q-hbN" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="vfd-II-WDW">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="6PP-Do-Vef"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="wkI-WG-J2n"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Frb-vb-5XL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2759.4202898550725" y="20.758928571428569"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="cIb-eU-MZw">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="OES-Ig-wa6" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="KxZ-KF-lRm">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="9Oz-PC-HqT"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BdW-rQ-0uF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="47.826086956521742" y="20.758928571428569"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="bolt copy" width="414" height="399"/>
+        <image name="qr-code-sticker-by-Vexels" width="300" height="300"/>
+    </resources>
 </document>

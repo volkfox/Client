@@ -12,6 +12,10 @@
 		5EC836E522A5B65100DBD43B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5EC836E322A5B65100DBD43B /* Main.storyboard */; };
 		5EC836E722A5B65300DBD43B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5EC836E622A5B65300DBD43B /* Assets.xcassets */; };
 		5EC836EA22A5B65300DBD43B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5EC836E822A5B65300DBD43B /* LaunchScreen.storyboard */; };
+		5EC836F222A5B92200DBD43B /* thundr_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EC836F122A5B92200DBD43B /* thundr_logo.png */; };
+		5EC836F522A5BCB400DBD43B /* bolt copy.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 5EC836F422A5BCB400DBD43B /* bolt copy.pdf */; };
+		5EC836F722A6003A00DBD43B /* QRScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC836F622A6003A00DBD43B /* QRScannerView.swift */; };
+		5EC836F922A6012700DBD43B /* QRData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC836F822A6012700DBD43B /* QRData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +26,10 @@
 		5EC836E622A5B65300DBD43B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5EC836E922A5B65300DBD43B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5EC836EB22A5B65300DBD43B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5EC836F122A5B92200DBD43B /* thundr_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = thundr_logo.png; sourceTree = "<group>"; };
+		5EC836F422A5BCB400DBD43B /* bolt copy.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "bolt copy.pdf"; sourceTree = "<group>"; };
+		5EC836F622A6003A00DBD43B /* QRScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerView.swift; sourceTree = "<group>"; };
+		5EC836F822A6012700DBD43B /* QRData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,12 +64,24 @@
 			children = (
 				5EC836DF22A5B65100DBD43B /* AppDelegate.swift */,
 				5EC836E122A5B65100DBD43B /* ViewController.swift */,
+				5EC836F822A6012700DBD43B /* QRData.swift */,
 				5EC836E322A5B65100DBD43B /* Main.storyboard */,
 				5EC836E622A5B65300DBD43B /* Assets.xcassets */,
+				5EC836F322A5B98600DBD43B /* Graphics */,
 				5EC836E822A5B65300DBD43B /* LaunchScreen.storyboard */,
 				5EC836EB22A5B65300DBD43B /* Info.plist */,
+				5EC836F622A6003A00DBD43B /* QRScannerView.swift */,
 			);
 			path = Client;
+			sourceTree = "<group>";
+		};
+		5EC836F322A5B98600DBD43B /* Graphics */ = {
+			isa = PBXGroup;
+			children = (
+				5EC836F422A5BCB400DBD43B /* bolt copy.pdf */,
+				5EC836F122A5B92200DBD43B /* thundr_logo.png */,
+			);
+			path = Graphics;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -123,8 +143,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				5EC836EA22A5B65300DBD43B /* LaunchScreen.storyboard in Resources */,
+				5EC836F522A5BCB400DBD43B /* bolt copy.pdf in Resources */,
 				5EC836E722A5B65300DBD43B /* Assets.xcassets in Resources */,
 				5EC836E522A5B65100DBD43B /* Main.storyboard in Resources */,
+				5EC836F222A5B92200DBD43B /* thundr_logo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,7 +157,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5EC836F922A6012700DBD43B /* QRData.swift in Sources */,
 				5EC836E222A5B65100DBD43B /* ViewController.swift in Sources */,
+				5EC836F722A6003A00DBD43B /* QRScannerView.swift in Sources */,
 				5EC836E022A5B65100DBD43B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
