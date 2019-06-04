@@ -68,7 +68,7 @@
         <!--Brain Storm Controller-->
         <scene sceneID="sj7-7G-UKs">
             <objects>
-                <viewController id="oj3-d8-qyT" customClass="BrainStormController" customModule="Client" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="bstorm" id="oj3-d8-qyT" customClass="BrainStormController" customModule="Client" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="OHU-qY-e7x">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -98,7 +98,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Azx-JZ-BvJ" firstAttribute="top" secondItem="91s-L0-LCs" secondAttribute="bottom" constant="36" id="7Vi-ej-efC"/>
                             <constraint firstItem="GB0-52-S4l" firstAttribute="trailing" secondItem="91s-L0-LCs" secondAttribute="trailing" id="BXZ-xF-aFh"/>
@@ -119,22 +119,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AQv-BT-8ao" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1737.68115942029" y="20.758928571428569"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="yCX-dG-HQK">
-            <objects>
-                <viewController id="tYP-5q-hbN" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="vfd-II-WDW">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="6PP-Do-Vef"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="wkI-WG-J2n"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Frb-vb-5XL" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2759.4202898550725" y="20.758928571428569"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="cIb-eU-MZw">
