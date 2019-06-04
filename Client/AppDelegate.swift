@@ -14,9 +14,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    var sessionID : String? = nil
+    
+    internal func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
         //Database.database().isPersistenceEnabled = true
+        print("finished launching")
         return true
     }
     
@@ -25,24 +28,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                      options: [UIApplication.OpenURLOptionsKey : Any] = [:]
         ) -> Bool {
         
-        // Determine who sent the URL.
+        //FirebaseApp.configure()
+        
         let sendingAppID = options[.sourceApplication]
         print("source application = \(sendingAppID ?? "Unknown")")
         
         // Process the URL.
         guard let components = NSURLComponents(url: url, resolvingAgainstBaseURL: true),
 
-            let params = components.queryItems else {
+        let params = components.queryItems else {
                 print("Invalid URL or session part missing")
                 return false
         }
         
+        print("params: \(params)")
+        
         if let session = params.first(where: { $0.name == "code" })?.value {
-            print("session = \(session)")
-            //let viewController = UIApplication.shared.keyWindow!.rootViewController as! ViewController
             
-            let viewController = UIApplication.topViewController() as! ViewController
-            viewController.session = session
+            print("session = \(session)")
+            
+            //if let viewController = UIApplication.topViewController() as? ViewController {
+
+               //viewController.session = session
+            // } else {
+                sessionID = session
+                NotificationCenter.default.post(name: Notification.Name("ChangedSession"), object: nil)
+            //}
             
             return true
         } else {

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1F205E60FDCC0C671BF0B34C /* Pods_Client.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188FD653EB35CC952A9112A6 /* Pods_Client.framework */; };
 		5E7C0C1322A65DAE00BCF136 /* UIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C0C1222A65DAE00BCF136 /* UIConstants.swift */; };
+		5E7C0C1522A667C400BCF136 /* barcode.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 5E7C0C1422A667C400BCF136 /* barcode.pdf */; };
 		5EC836E022A5B65100DBD43B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC836DF22A5B65100DBD43B /* AppDelegate.swift */; };
 		5EC836E222A5B65100DBD43B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC836E122A5B65100DBD43B /* ViewController.swift */; };
 		5EC836E522A5B65100DBD43B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5EC836E322A5B65100DBD43B /* Main.storyboard */; };
@@ -24,6 +25,7 @@
 		10EF616F04235828F9842141 /* Pods-Client.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Client.release.xcconfig"; path = "Target Support Files/Pods-Client/Pods-Client.release.xcconfig"; sourceTree = "<group>"; };
 		188FD653EB35CC952A9112A6 /* Pods_Client.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Client.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E7C0C1222A65DAE00BCF136 /* UIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIConstants.swift; sourceTree = "<group>"; };
+		5E7C0C1422A667C400BCF136 /* barcode.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = barcode.pdf; sourceTree = "<group>"; };
 		5EC836DC22A5B65100DBD43B /* Client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Client.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EC836DF22A5B65100DBD43B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5EC836E122A5B65100DBD43B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 		5EC836F322A5B98600DBD43B /* Constants */ = {
 			isa = PBXGroup;
 			children = (
+				5E7C0C1422A667C400BCF136 /* barcode.pdf */,
 				5E7C0C1222A65DAE00BCF136 /* UIConstants.swift */,
 			);
 			path = Constants;
@@ -190,6 +193,7 @@
 				5EC836EA22A5B65300DBD43B /* LaunchScreen.storyboard in Resources */,
 				5EC8370122A6377900DBD43B /* GoogleService-Info.plist in Resources */,
 				5EC836E722A5B65300DBD43B /* Assets.xcassets in Resources */,
+				5E7C0C1522A667C400BCF136 /* barcode.pdf in Resources */,
 				5EC836E522A5B65100DBD43B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

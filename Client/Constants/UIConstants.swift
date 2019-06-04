@@ -11,4 +11,5 @@ import UIKit
 
 struct UIConstants {
     static let edgeInset: CGFloat = 10
+    static let sessionCodeCounter = 6
 }

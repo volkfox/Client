@@ -21,9 +21,10 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     
     var qrData: QRData? = nil {
         didSet {
+            print("did set")
             let prefix = "com.thundr://session?code="
-            var code = self.qrData?.codeString ?? prefix + "MPUZKX"
-            if  let prefixRange = code.range(of: prefix) {
+            var code = self.qrData?.codeString ?? prefix + "MPPZKX"
+            if  let prefixRange = self.qrData?.codeString?.range(of: prefix) {
                 code.removeSubrange(prefixRange)
                 self.session  =  code
             }
@@ -71,14 +72,15 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         scannerView.frame = CGRect.zero
         
+        sessionChanged()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(sessionChanged), name: Notification.Name("ChangedSession"), object: nil)
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(false)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
-        
-        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -106,16 +108,24 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     
     @objc func dismissQR (_ sender: UITapGestureRecognizer) {
 
-        if !scannerView.isRunning {
+        if scannerView.isRunning {
             scannerView.stopScanning()
         }
         scannerView.frame = CGRect.zero
     }
     
+    @objc func sessionChanged() {
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        if let sess = appDelegate.sessionID {
+            self.session = sess
+        }
+    }
+    
     func transition() {
         
         // some session code error checking needed here
-        if self.session.count == 6 {
+        if self.session.count == UIConstants.sessionCodeCounter {
             self.performSegue(withIdentifier: "brainstorm", sender: self)
         }
     }
