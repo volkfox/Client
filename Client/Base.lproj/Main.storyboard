@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Session Selector-->
+        <!--Session -->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Client" customModuleProvider="target" sceneMemberID="viewController">
@@ -21,12 +21,17 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="bolt copy" translatesAutoresizingMaskIntoConstraints="NO" id="7Qf-YZ-zVy">
                                 <rect key="frame" x="71" y="150" width="273" height="195"/>
                             </imageView>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="code" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="xb7-zO-0bT">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="enter code" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="xb7-zO-0bT">
                                 <rect key="frame" x="52" y="511" width="310" height="58"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="45"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no" spellCheckingType="no" keyboardType="alphabet" returnKeyType="go" textContentType="one-time-code"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="_placeholderLabel.textColor">
+                                        <color key="value" white="1" alpha="0.61205051369863017" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </textField>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="barcode" translatesAutoresizingMaskIntoConstraints="NO" id="hQx-MM-oXM">
                                 <rect key="frame" x="124" y="668" width="167" height="145"/>
@@ -53,7 +58,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Session Selector" id="FyI-ew-7fH"/>
+                    <navigationItem key="navigationItem" title="Session " id="FyI-ew-7fH"/>
                     <connections>
                         <outlet property="QRlauncher" destination="hQx-MM-oXM" id="e36-Vh-nvN"/>
                         <outlet property="brainstorm" destination="7Qf-YZ-zVy" id="f0o-j6-A2X"/>
@@ -76,35 +81,44 @@
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="91s-L0-LCs">
                                 <rect key="frame" x="20" y="157" width="374" height="470"/>
-                                <color key="backgroundColor" red="0.99942404029999998" green="0.98555368190000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.060399845242500305" green="0.82913386821746826" blue="0.86170071363449097" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Azx-JZ-BvJ">
                                 <rect key="frame" x="166.5" y="663" width="81" height="55"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="36"/>
-                                <state key="normal" title="Send"/>
+                                <state key="normal" title="Send">
+                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
                                 <connections>
                                     <action selector="sendToGoogle:" destination="oj3-d8-qyT" eventType="touchUpInside" id="fh5-Bd-aSO"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GB0-52-S4l">
-                                <rect key="frame" x="364" y="157" width="30" height="38"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                <state key="normal" title="✗">
+                            <button opaque="NO" alpha="0.80000000000000004" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GB0-52-S4l">
+                                <rect key="frame" x="354" y="162" width="35" height="34"/>
+                                <state key="normal" backgroundImage="medium-transparent">
                                     <color key="titleColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                 </state>
                                 <connections>
                                     <action selector="clearText:" destination="oj3-d8-qyT" eventType="touchUpInside" id="DBb-P7-Qxu"/>
                                 </connections>
                             </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mike" translatesAutoresizingMaskIntoConstraints="NO" id="eZk-lO-SJT">
+                                <rect key="frame" x="143" y="728" width="128" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="Mwa-XC-8h4"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Azx-JZ-BvJ" firstAttribute="top" secondItem="91s-L0-LCs" secondAttribute="bottom" constant="36" id="7Vi-ej-efC"/>
-                            <constraint firstItem="GB0-52-S4l" firstAttribute="trailing" secondItem="91s-L0-LCs" secondAttribute="trailing" id="BXZ-xF-aFh"/>
+                            <constraint firstItem="GB0-52-S4l" firstAttribute="trailing" secondItem="91s-L0-LCs" secondAttribute="trailing" constant="-5" id="BXZ-xF-aFh"/>
                             <constraint firstItem="91s-L0-LCs" firstAttribute="top" secondItem="Vl7-xP-3W8" secondAttribute="top" constant="69" id="KVL-vD-bor"/>
-                            <constraint firstItem="GB0-52-S4l" firstAttribute="top" secondItem="91s-L0-LCs" secondAttribute="top" id="aNt-OM-pzj"/>
+                            <constraint firstItem="eZk-lO-SJT" firstAttribute="top" secondItem="Azx-JZ-BvJ" secondAttribute="bottom" constant="10" id="Ok2-tY-s0o"/>
+                            <constraint firstItem="eZk-lO-SJT" firstAttribute="centerX" secondItem="Azx-JZ-BvJ" secondAttribute="centerX" id="TPp-8x-rWJ"/>
+                            <constraint firstItem="GB0-52-S4l" firstAttribute="top" secondItem="91s-L0-LCs" secondAttribute="top" constant="5" id="aNt-OM-pzj"/>
                             <constraint firstItem="Vl7-xP-3W8" firstAttribute="bottom" secondItem="91s-L0-LCs" secondAttribute="bottom" constant="235" id="i1U-cX-7fa"/>
                             <constraint firstItem="Azx-JZ-BvJ" firstAttribute="centerX" secondItem="Vl7-xP-3W8" secondAttribute="centerX" id="khd-XL-g8Z"/>
                             <constraint firstItem="Vl7-xP-3W8" firstAttribute="trailing" secondItem="91s-L0-LCs" secondAttribute="trailing" constant="20" id="ooQ-4g-Nkm"/>
@@ -115,6 +129,7 @@
                     <connections>
                         <outlet property="clearButton" destination="GB0-52-S4l" id="EtJ-Yl-V0B"/>
                         <outlet property="poster" destination="91s-L0-LCs" id="kFN-mN-SvC"/>
+                        <outlet property="record" destination="eZk-lO-SJT" id="R6g-y4-oIK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AQv-BT-8ao" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -143,5 +158,7 @@
     <resources>
         <image name="barcode" width="300" height="300"/>
         <image name="bolt copy" width="414" height="399"/>
+        <image name="medium-transparent" width="45" height="45"/>
+        <image name="mike" width="128" height="200"/>
     </resources>
 </document>

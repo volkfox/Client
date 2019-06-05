@@ -19,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     internal func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
         //Database.database().isPersistenceEnabled = true
+        
         print("finished launching")
         return true
     }
@@ -27,8 +28,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                      open url: URL,
                      options: [UIApplication.OpenURLOptionsKey : Any] = [:]
         ) -> Bool {
-        
-        //FirebaseApp.configure()
         
         let sendingAppID = options[.sourceApplication]
         print("source application = \(sendingAppID ?? "Unknown")")
@@ -45,15 +44,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if let session = params.first(where: { $0.name == "code" })?.value {
             
-            print("session = \(session)")
+            print("launched into session = \(session)")
             
-            //if let viewController = UIApplication.topViewController() as? ViewController {
-
-               //viewController.session = session
-            // } else {
-                sessionID = session
-                NotificationCenter.default.post(name: Notification.Name("ChangedSession"), object: nil)
-            //}
+            sessionID = session
+            NotificationCenter.default.post(name: Notification.Name("ChangedSession"), object: nil)
             
             return true
         } else {

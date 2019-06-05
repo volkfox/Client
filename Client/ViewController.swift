@@ -46,6 +46,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     @IBOutlet weak var sessionInput: UITextField! {
         didSet {
             sessionInput.delegate = self
+            //sessionInput._placeholderLabel.textColor = .white
         }
     }
     

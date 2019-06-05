@@ -10,10 +10,10 @@
 		1F205E60FDCC0C671BF0B34C /* Pods_Client.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188FD653EB35CC952A9112A6 /* Pods_Client.framework */; };
 		5E7C0C1322A65DAE00BCF136 /* UIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C0C1222A65DAE00BCF136 /* UIConstants.swift */; };
 		5E7C0C1522A667C400BCF136 /* barcode.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 5E7C0C1422A667C400BCF136 /* barcode.pdf */; };
+		5E7C0C1722A746B500BCF136 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E7C0C1622A746B500BCF136 /* Assets.xcassets */; };
 		5EC836E022A5B65100DBD43B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC836DF22A5B65100DBD43B /* AppDelegate.swift */; };
 		5EC836E222A5B65100DBD43B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC836E122A5B65100DBD43B /* ViewController.swift */; };
 		5EC836E522A5B65100DBD43B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5EC836E322A5B65100DBD43B /* Main.storyboard */; };
-		5EC836E722A5B65300DBD43B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5EC836E622A5B65300DBD43B /* Assets.xcassets */; };
 		5EC836EA22A5B65300DBD43B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5EC836E822A5B65300DBD43B /* LaunchScreen.storyboard */; };
 		5EC836F722A6003A00DBD43B /* QRScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC836F622A6003A00DBD43B /* QRScannerView.swift */; };
 		5EC836F922A6012700DBD43B /* QRData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC836F822A6012700DBD43B /* QRData.swift */; };
@@ -26,11 +26,11 @@
 		188FD653EB35CC952A9112A6 /* Pods_Client.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Client.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E7C0C1222A65DAE00BCF136 /* UIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIConstants.swift; sourceTree = "<group>"; };
 		5E7C0C1422A667C400BCF136 /* barcode.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = barcode.pdf; sourceTree = "<group>"; };
+		5E7C0C1622A746B500BCF136 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5EC836DC22A5B65100DBD43B /* Client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Client.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EC836DF22A5B65100DBD43B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5EC836E122A5B65100DBD43B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		5EC836E422A5B65100DBD43B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		5EC836E622A5B65300DBD43B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5EC836E922A5B65300DBD43B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5EC836EB22A5B65300DBD43B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5EC836F622A6003A00DBD43B /* QRScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerView.swift; sourceTree = "<group>"; };
@@ -90,6 +90,7 @@
 		5EC836DE22A5B65100DBD43B /* Client */ = {
 			isa = PBXGroup;
 			children = (
+				5E7C0C1622A746B500BCF136 /* Assets.xcassets */,
 				5EC836E122A5B65100DBD43B /* ViewController.swift */,
 				5EC836FA22A6175F00DBD43B /* ViewControllers */,
 				5EC836FD22A617E900DBD43B /* QR */,
@@ -98,7 +99,6 @@
 				5EC836DF22A5B65100DBD43B /* AppDelegate.swift */,
 				5EC836EB22A5B65300DBD43B /* Info.plist */,
 				5EC8370022A6377900DBD43B /* GoogleService-Info.plist */,
-				5EC836E622A5B65300DBD43B /* Assets.xcassets */,
 				5EC836F322A5B98600DBD43B /* Constants */,
 			);
 			path = Client;
@@ -192,9 +192,9 @@
 			files = (
 				5EC836EA22A5B65300DBD43B /* LaunchScreen.storyboard in Resources */,
 				5EC8370122A6377900DBD43B /* GoogleService-Info.plist in Resources */,
-				5EC836E722A5B65300DBD43B /* Assets.xcassets in Resources */,
 				5E7C0C1522A667C400BCF136 /* barcode.pdf in Resources */,
 				5EC836E522A5B65100DBD43B /* Main.storyboard in Resources */,
+				5E7C0C1722A746B500BCF136 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
