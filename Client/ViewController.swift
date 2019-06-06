@@ -113,7 +113,6 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
                 DispatchQueue.main.async {
                     self.navigationController?.navigationBar.barTintColor = nil
                     self.navigationController?.navigationBar.tintColor = UIConstants.themeColor
-                    
                 }
                 
             } else {

@@ -17,11 +17,7 @@ class BrainStormController: UIViewController, UITextViewDelegate, SFSpeechRecogn
     
     var sessionID: String = ""
     
-    private var channel = 0
-    private var messages: [String] = []
-    private var mode = 0
-    
-    private var ref : DatabaseReference!
+    private var backend: Backend? = nil
     
     private var recording: Bool = false
     private var recordingIsEnabled = false
@@ -49,6 +45,8 @@ class BrainStormController: UIViewController, UITextViewDelegate, SFSpeechRecogn
             poster.delegate = self
             let inset = UIConstants.edgeInset
             poster.textContainerInset = UIEdgeInsets(top: inset, left: inset, bottom: inset, right: 2*inset)
+            // dead line to update a change in NIB
+            poster.tintColorDidChange()
         }
     }
     
@@ -78,23 +76,15 @@ class BrainStormController: UIViewController, UITextViewDelegate, SFSpeechRecogn
         guard poster.text != " " else { return }
         guard poster.text != "" else { return }
         
-        let key = ref.child("\(self.sessionID)/messages").childByAutoId().key
         let message = [
             "text": input as Any,
-            "channel": self.channel as Any
+            "channel": backend!.channel as Any
             ] as [String : Any]
         
-        ref.child("\(self.sessionID)/messages").child(key ?? "666").setValue(message) {
-            
-            (error:Error?, ref:DatabaseReference) in
-            if let error = error {
-                print("Data could not be saved: \(error).")
-            } else {
-                print("Data saved successfully!")
-                self.poster.text = ""
-                self.curlUp()
-            }
-        }
+        backend!.updateList(key: "messages", value: message, completionHandler: {
+            self.poster.text = ""
+            self.curlUp()
+        })
     }
     
     private func curlUp() {
@@ -110,6 +100,8 @@ class BrainStormController: UIViewController, UITextViewDelegate, SFSpeechRecogn
         
     }
     
+     // MARK: - ViewDidLoad
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -118,11 +110,12 @@ class BrainStormController: UIViewController, UITextViewDelegate, SFSpeechRecogn
         self.hideKeyboard() 
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         placeholderSet(poster)
-        self.startFirebase()
+        
+        self.backend = Backend(sessionID: self.sessionID)
+        
         
         // Do any additional setup after loading the view.
     }
-    
     
     
     @objc func sessionChanged() {
@@ -130,6 +123,7 @@ class BrainStormController: UIViewController, UITextViewDelegate, SFSpeechRecogn
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         if let sess = appDelegate.sessionID {
             self.sessionID = sess
+            backend!.session = sess
         }
     }
     
@@ -206,7 +200,6 @@ class BrainStormController: UIViewController, UITextViewDelegate, SFSpeechRecogn
     private  func startRecording() {
         
         if  speechRecognitionTask != nil {
-            
             speechRecognitionTask?.cancel()
             speechRecognitionTask = nil
         }
@@ -222,7 +215,6 @@ class BrainStormController: UIViewController, UITextViewDelegate, SFSpeechRecogn
         } catch {
             
             print("audio session was not set")
-            
         }
         
         let inputNode = audioEngine.inputNode
@@ -290,35 +282,6 @@ class BrainStormController: UIViewController, UITextViewDelegate, SFSpeechRecogn
         } else {
             self.recordingIsEnabled = false
         }
-    }
-    
-    private func startFirebase() {
-        
-        ref = Database.database().reference();
-        
-        ref.child("\(self.sessionID)").observe(.value, with: { (snapshot) in
-            let stormDict = snapshot.value as? [String: Any]
-            
-            if let stormDict = stormDict {
-                
-                self.mode = stormDict["mode"] as? Int ?? 0
-                self.channel = stormDict["channel"] as? Int ?? 0
-                
-                if let messageList = stormDict["messages"]  as? [String: Any] {
-                    self.messages = []
-                    for message in messageList {
-                        if let m = message.value as? [String: Any], let text = m["text"], let channel = m["channel"] {
-                            if self.channel == channel as? Int ?? 0, let tx = text as? String {
-                                self.messages.append(tx)
-                            }
-                        }
-                    }
-                }
-            }
-            print("brainstorm session mode: \(self.mode)")
-            //print("channel: \(self.channel)")
-            //print("messages: \(self.messages)")
-        })
     }
     
     private func playTone(action: String) {
