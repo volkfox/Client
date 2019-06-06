@@ -7,19 +7,25 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseDatabase
+import Network
 
 
 class ViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, QRScannerViewDelegate, UITextFieldDelegate {
     
-    var imagePicker: UIImagePickerController!
+    private var ref : DatabaseReference!
     
+    private var imagePicker: UIImagePickerController!
+    
+    // can be set from App Delegate with URL scheme launcher
     var session : String = "" {
         didSet {
             sessionInput.text = self.session
         }
     }
     
-    var qrData: QRData? = nil {
+    private var qrData: QRData? = nil {
         didSet {
             print("did set")
             let prefix = "com.thundr://session?code="
@@ -46,7 +52,6 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     @IBOutlet weak var sessionInput: UITextField! {
         didSet {
             sessionInput.delegate = self
-            //sessionInput._placeholderLabel.textColor = .white
         }
     }
     
@@ -59,6 +64,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         }
     }
     
+    
     @IBOutlet weak var brainstorm: UIImageView! {
         didSet {
             let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.launchStorm(_:)))
@@ -70,13 +76,18 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboard()
+        ref = Database.database().reference();
+        
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         scannerView.frame = CGRect.zero
         
+        // avoid delay in displaying the code if launched via IOS camera app
         sessionChanged()
         
+        // change session code if app is running and IOS camera scanned another QR
         NotificationCenter.default.addObserver(self, selector: #selector(sessionChanged), name: Notification.Name("ChangedSession"), object: nil)
-        // Do any additional setup after loading the view.
+        
+        self.startNetworkMonitor()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -90,6 +101,34 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         if !scannerView.isRunning {
             scannerView.stopScanning()
         }
+    }
+    
+    private func startNetworkMonitor() {
+        
+        let monitor = NWPathMonitor()
+        monitor.pathUpdateHandler = { path in
+            
+            if path.status == .satisfied {
+                print("We're connected!")
+                DispatchQueue.main.async {
+                    self.navigationController?.navigationBar.barTintColor = nil
+                    self.navigationController?.navigationBar.tintColor = UIConstants.themeColor
+                    
+                }
+                
+            } else {
+                print("No connection.")
+                DispatchQueue.main.async {
+                    self.navigationController?.navigationBar.barTintColor = .red
+                    self.navigationController?.navigationBar.tintColor = .white
+                }
+            }
+            
+            print(path.isExpensive)
+        }
+        let queue = DispatchQueue(label: "Monitor")
+        monitor.start(queue: queue)
+        
     }
     
     @objc func launchStorm(_ sender: UITapGestureRecognizer) {
@@ -108,7 +147,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     }
     
     @objc func dismissQR (_ sender: UITapGestureRecognizer) {
-
+        
         if scannerView.isRunning {
             scannerView.stopScanning()
         }
@@ -120,14 +159,35 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         if let sess = appDelegate.sessionID {
             self.session = sess
+            sessionInput.text = sess
         }
     }
     
     func transition() {
         
         // some session code error checking needed here
-        if self.session.count == UIConstants.sessionCodeCounter {
-            self.performSegue(withIdentifier: "brainstorm", sender: self)
+        //if self.session.count == UIConstants.sessionCodeCounter {
+        //    self.performSegue(withIdentifier: "brainstorm", sender: self)
+        //}
+        
+        ref.child(session).observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value
+            if let _ = snapshot.value as? NSDictionary {
+                
+                self.performSegue(withIdentifier: "brainstorm", sender: self)
+                
+            } else {
+                
+                self.sessionInput.textColor = UIConstants.sessionFieldColorError
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    self.sessionInput.textColor = UIConstants.sessionFieldColor
+                }
+                print("wrong session code")
+            }
+            // ...
+        }) { (error) in
+            print("firebase err")
+            print(error.localizedDescription)
         }
     }
     

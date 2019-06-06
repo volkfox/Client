@@ -24,6 +24,7 @@
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="enter code" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="xb7-zO-0bT">
                                 <rect key="frame" x="52" y="511" width="310" height="58"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="45"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no" spellCheckingType="no" keyboardType="alphabet" returnKeyType="go" textContentType="one-time-code"/>
@@ -130,6 +131,7 @@
                         <outlet property="clearButton" destination="GB0-52-S4l" id="EtJ-Yl-V0B"/>
                         <outlet property="poster" destination="91s-L0-LCs" id="kFN-mN-SvC"/>
                         <outlet property="record" destination="eZk-lO-SJT" id="R6g-y4-oIK"/>
+                        <outlet property="sendButton" destination="Azx-JZ-BvJ" id="N8y-7f-lU1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AQv-BT-8ao" userLabel="First Responder" sceneMemberID="firstResponder"/>
