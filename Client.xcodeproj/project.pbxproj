@@ -82,6 +82,15 @@
 			path = Audio;
 			sourceTree = "<group>";
 		};
+		5E7C0C1F22A92F5B00BCF136 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				5EC836E322A5B65100DBD43B /* Main.storyboard */,
+				5EC836E822A5B65300DBD43B /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
 		5EC836D322A5B65100DBD43B = {
 			isa = PBXGroup;
 			children = (
@@ -103,17 +112,16 @@
 		5EC836DE22A5B65100DBD43B /* Client */ = {
 			isa = PBXGroup;
 			children = (
-				5E7C0C1622A746B500BCF136 /* Assets.xcassets */,
 				5EC836E122A5B65100DBD43B /* ViewController.swift */,
 				5EC836FA22A6175F00DBD43B /* ViewControllers */,
 				5EC836FD22A617E900DBD43B /* QR */,
-				5EC836E322A5B65100DBD43B /* Main.storyboard */,
-				5EC836E822A5B65300DBD43B /* LaunchScreen.storyboard */,
+				5E7C0C1F22A92F5B00BCF136 /* Storyboards */,
 				5E7C0C1E22A91A1800BCF136 /* Audio */,
 				5EC836DF22A5B65100DBD43B /* AppDelegate.swift */,
 				5EC836EB22A5B65300DBD43B /* Info.plist */,
 				5EC8370022A6377900DBD43B /* GoogleService-Info.plist */,
 				5EC836F322A5B98600DBD43B /* Constants */,
+				5E7C0C1622A746B500BCF136 /* Assets.xcassets */,
 			);
 			path = Client;
 			sourceTree = "<group>";

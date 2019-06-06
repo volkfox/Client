@@ -16,11 +16,13 @@ import AVFoundation
 class BrainStormController: UIViewController, UITextViewDelegate, SFSpeechRecognizerDelegate {
     
     var sessionID: String = ""
+    
     private var channel = 0
     private var messages: [String] = []
     private var mode = 0
     
     private var ref : DatabaseReference!
+    
     private var recording: Bool = false
     private var recordingIsEnabled = false
     
@@ -40,7 +42,6 @@ class BrainStormController: UIViewController, UITextViewDelegate, SFSpeechRecogn
             record.isUserInteractionEnabled = true
             record.addGestureRecognizer(gestureRecognizer)
         }
-        
     }
     
     @IBOutlet weak var poster: UITextView! {
@@ -50,6 +51,7 @@ class BrainStormController: UIViewController, UITextViewDelegate, SFSpeechRecogn
             poster.textContainerInset = UIEdgeInsets(top: inset, left: inset, bottom: inset, right: 2*inset)
         }
     }
+    
     @IBAction func clearText(_ sender: UIButton) {
         poster.text = ""
         print("clearing poster")
@@ -71,18 +73,10 @@ class BrainStormController: UIViewController, UITextViewDelegate, SFSpeechRecogn
     
     @IBAction func sendToGoogle(_ sender: UIButton) {
         
-        guard let input = poster.text else {
-            return
-        }
-        guard poster.text != UIConstants.posterPlaceholder else {
-            return
-        }
-        guard poster.text != " " else {
-            return
-        }
-        guard poster.text != "" else {
-            return
-        }
+        guard let input = poster.text else { return }
+        guard poster.text != UIConstants.posterPlaceholder else { return }
+        guard poster.text != " " else { return }
+        guard poster.text != "" else { return }
         
         let key = ref.child("\(self.sessionID)/messages").childByAutoId().key
         let message = [
@@ -107,12 +101,11 @@ class BrainStormController: UIViewController, UITextViewDelegate, SFSpeechRecogn
         let transitionOptions = UIView.AnimationOptions.transitionCurlUp
         
         UIView.transition(with: self.poster,
-                          //to: poster,
             duration: 1.5,
             options: [transitionOptions, .showHideTransitionViews],
             animations: nil,
             completion: { _ in
-                //self.poster.text = ""
+                //can play a sound here but too annoying...
         })
         
     }
@@ -127,12 +120,10 @@ class BrainStormController: UIViewController, UITextViewDelegate, SFSpeechRecogn
         placeholderSet(poster)
         self.startFirebase()
         
-        
-        print(sessionID)
         // Do any additional setup after loading the view.
     }
     
-
+    
     
     @objc func sessionChanged() {
         
@@ -145,7 +136,6 @@ class BrainStormController: UIViewController, UITextViewDelegate, SFSpeechRecogn
     @objc func startStop(_ sender: UITapGestureRecognizer) {
         
         var recordingEnabled = false
-        
         
         SFSpeechRecognizer.requestAuthorization{ (authStatus) in
             
@@ -257,7 +247,6 @@ class BrainStormController: UIViewController, UITextViewDelegate, SFSpeechRecogn
             var isFinal = false;
             
             if result != nil{
-                
                 // save results onscreen
                 self.poster.becomeFirstResponder()
                 self.poster.text = savedtext + (result?.bestTranscription.formattedString ?? " ")
@@ -287,11 +276,9 @@ class BrainStormController: UIViewController, UITextViewDelegate, SFSpeechRecogn
         
         audioEngine.prepare()
         
-        do{
+        do {
             try audioEngine.start()
-            
         } catch{
-            
             print("AudioEngine could not start.")
         }
     }
@@ -299,11 +286,8 @@ class BrainStormController: UIViewController, UITextViewDelegate, SFSpeechRecogn
     func speechRecognizer(_ speechRecognizer: SFSpeechRecognizer, availabilityDidChange available: Bool) {
         
         if available {
-            
             self.recordingIsEnabled = true
-            
         } else {
-            
             self.recordingIsEnabled = false
         }
     }
@@ -316,6 +300,7 @@ class BrainStormController: UIViewController, UITextViewDelegate, SFSpeechRecogn
             let stormDict = snapshot.value as? [String: Any]
             
             if let stormDict = stormDict {
+                
                 self.mode = stormDict["mode"] as? Int ?? 0
                 self.channel = stormDict["channel"] as? Int ?? 0
                 
@@ -330,7 +315,7 @@ class BrainStormController: UIViewController, UITextViewDelegate, SFSpeechRecogn
                     }
                 }
             }
-            print("mode: \(self.mode)")
+            print("brainstorm session mode: \(self.mode)")
             //print("channel: \(self.channel)")
             //print("messages: \(self.messages)")
         })
@@ -339,13 +324,13 @@ class BrainStormController: UIViewController, UITextViewDelegate, SFSpeechRecogn
     private func playTone(action: String) {
         
         guard let url = Bundle.main.url(forResource: "record_\(action)", withExtension : "mp3") else {return}
-
+        
         do {
             try AVAudioSession.sharedInstance().setCategory((AVAudioSession.Category.playback), mode: .default, options: [])
             try AVAudioSession.sharedInstance().setActive(true)
             player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
             guard let player = player else { return }
-
+            
             player.play()
         }
         catch {
@@ -378,7 +363,6 @@ class BrainStormController: UIViewController, UITextViewDelegate, SFSpeechRecogn
         } else {
             clearButton.alpha = 0.0
         }
-        //print(poster.text)
     }
     
     
