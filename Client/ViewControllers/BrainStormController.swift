@@ -11,6 +11,7 @@ import UIKit
 import Firebase
 import FirebaseDatabase
 import Speech
+import AVFoundation
 
 class BrainStormController: UIViewController, UITextViewDelegate, SFSpeechRecognizerDelegate {
     
@@ -28,6 +29,7 @@ class BrainStormController: UIViewController, UITextViewDelegate, SFSpeechRecogn
     private var speechRecognitionTask : SFSpeechRecognitionTask?
     private let audioEngine = AVAudioEngine()
     
+    var player: AVAudioPlayer!
     
     @IBOutlet weak var record: UIImageView! {
         
@@ -144,6 +146,7 @@ class BrainStormController: UIViewController, UITextViewDelegate, SFSpeechRecogn
         
         var recordingEnabled = false
         
+        
         SFSpeechRecognizer.requestAuthorization{ (authStatus) in
             
             switch authStatus {
@@ -184,23 +187,25 @@ class BrainStormController: UIViewController, UITextViewDelegate, SFSpeechRecogn
             
             // starting tasks
             self.recording =  true
-            
             startRecording()
-            
         }
         
         if self.recording {
             self.sendButton.isEnabled = false
             self.sendButton.alpha = 0.7
             print("started recording")
+            
             UIView.animate(
                 withDuration: 1.0,
                 delay: 0,
                 options: [.allowUserInteraction, .repeat, .autoreverse],
                 animations: { self.record.alpha = 0.1 },
                 completion: nil)
+            
         } else {
+            
             print("stopped recording")
+            self.playTone(action: "off")
             self.sendButton.isEnabled = true
             self.sendButton.alpha = 1.0
             record.layer.removeAllAnimations()
@@ -284,6 +289,7 @@ class BrainStormController: UIViewController, UITextViewDelegate, SFSpeechRecogn
         
         do{
             try audioEngine.start()
+            
         } catch{
             
             print("AudioEngine could not start.")
@@ -326,8 +332,25 @@ class BrainStormController: UIViewController, UITextViewDelegate, SFSpeechRecogn
             }
             print("mode: \(self.mode)")
             //print("channel: \(self.channel)")
-            print("messages: \(self.messages)")
+            //print("messages: \(self.messages)")
         })
+    }
+    
+    private func playTone(action: String) {
+        
+        guard let url = Bundle.main.url(forResource: "record_\(action)", withExtension : "mp3") else {return}
+
+        do {
+            try AVAudioSession.sharedInstance().setCategory((AVAudioSession.Category.playback), mode: .default, options: [])
+            try AVAudioSession.sharedInstance().setActive(true)
+            player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
+            guard let player = player else { return }
+
+            player.play()
+        }
+        catch {
+            print(error.localizedDescription)
+        }
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
