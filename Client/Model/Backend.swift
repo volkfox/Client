@@ -12,10 +12,11 @@ import FirebaseDatabase
 
 class Backend {
     
+    static let shared = Backend()
+    
     var channel = 0
     var messages: [String] = []
     var mode = 0
-    private var databaseHandle: DatabaseHandle!
     
     var session = "" {
         didSet {
@@ -23,24 +24,17 @@ class Backend {
         }
     }
     
+    private var databaseHandle: DatabaseHandle!
     private var ref : DatabaseReference!
     
-    static let shared = Backend()
-    
-    //Initializer access level change now
-    //private init(){}
-
     private init(){
-        
         ref = Database.database().reference();
-        //self.session = sessionID
-        //register()
-        
     }
     
     private func register() {
         
         guard self.session != "" else { return }
+        self.mode = 0
         
         if databaseHandle != nil {
             ref.removeObserver(withHandle: self.databaseHandle)
@@ -50,7 +44,15 @@ class Backend {
             
             if let stormDict = snapshot.value as? [String: Any] {
                 
-                self.mode = stormDict["mode"] as? Int ?? 0
+                let newmode = stormDict["mode"] as? Int ?? 0
+                
+                if self.mode != newmode {
+                    self.mode = newmode
+                    NotificationCenter.default.post(name: Notification.Name("ChangedMode"), object: nil)
+                } else {
+                    self.mode = newmode
+                }
+                
                 self.channel = stormDict["channel"] as? Int ?? 0
                 
                 if let messageList = stormDict["messages"]  as? [String: Any] {

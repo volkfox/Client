@@ -109,13 +109,13 @@ class BrainStormController: UIViewController, UITextViewDelegate, SFSpeechRecogn
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        
         NotificationCenter.default.addObserver(self, selector: #selector(sessionChanged), name: Notification.Name("ChangedSession"), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(modeChanged), name: Notification.Name("ChangedMode"), object: nil)
+        
         self.hideKeyboard() 
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         placeholderSet(poster)
-        
-    
         // Do any additional setup after loading the view.
     }
     
@@ -125,6 +125,15 @@ class BrainStormController: UIViewController, UITextViewDelegate, SFSpeechRecogn
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         if let sess = appDelegate.sessionID {
             self.sessionID = sess
+        }
+    }
+    
+    @objc func modeChanged() {
+        print("new mode: \(Backend.shared.mode)")
+        
+        if Backend.shared.mode == 1 {
+            
+            self.performSegue(withIdentifier: "vote", sender: self)
         }
     }
     
@@ -326,6 +335,13 @@ class BrainStormController: UIViewController, UITextViewDelegate, SFSpeechRecogn
             clearButton.alpha = 1.0
         } else {
             clearButton.alpha = 0.0
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "vote", let viewController = segue.destination as? VoteTableViewController {
+            //viewController.sessionID = self.session
+            print("segueing")
         }
     }
     

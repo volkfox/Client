@@ -151,8 +151,8 @@
 		5EC836FA22A6175F00DBD43B /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				5E6614AE22AA29F100D9C163 /* VoteTableViewController.swift */,
 				5EC836FB22A617AB00DBD43B /* BrainStormController.swift */,
+				5E6614AE22AA29F100D9C163 /* VoteTableViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
