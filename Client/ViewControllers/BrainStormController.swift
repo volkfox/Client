@@ -15,9 +15,13 @@ import AVFoundation
 
 class BrainStormController: UIViewController, UITextViewDelegate, SFSpeechRecognizerDelegate {
     
-    var sessionID: String = ""
+    var sessionID: String = "" {
+        didSet {
+            Backend.shared.session = sessionID
+        }
+    }
     
-    private var backend: Backend? = nil
+    //private var backend: Backend? = nil
     
     private var recording: Bool = false
     private var recordingIsEnabled = false
@@ -78,10 +82,10 @@ class BrainStormController: UIViewController, UITextViewDelegate, SFSpeechRecogn
         
         let message = [
             "text": input as Any,
-            "channel": backend!.channel as Any
+            "channel": Backend.shared.channel as Any
             ] as [String : Any]
         
-        backend!.updateList(key: "messages", value: message, completionHandler: {
+        Backend.shared.updateList(key: "messages", value: message, completionHandler: {
             self.poster.text = ""
             self.curlUp()
         })
@@ -111,9 +115,7 @@ class BrainStormController: UIViewController, UITextViewDelegate, SFSpeechRecogn
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         placeholderSet(poster)
         
-        self.backend = Backend(sessionID: self.sessionID)
-        
-        
+    
         // Do any additional setup after loading the view.
     }
     
@@ -123,7 +125,6 @@ class BrainStormController: UIViewController, UITextViewDelegate, SFSpeechRecogn
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         if let sess = appDelegate.sessionID {
             self.sessionID = sess
-            backend!.session = sess
         }
     }
     

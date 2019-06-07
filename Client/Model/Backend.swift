@@ -15,25 +15,48 @@ class Backend {
     var channel = 0
     var messages: [String] = []
     var mode = 0
-    var session = ""
+    private var databaseHandle: DatabaseHandle!
+    
+    var session = "" {
+        didSet {
+            register()
+        }
+    }
     
     private var ref : DatabaseReference!
+    
+    static let shared = Backend()
+    
     //Initializer access level change now
-    init(sessionID: String){
+    //private init(){}
+
+    private init(){
         
         ref = Database.database().reference();
-        self.session = sessionID
+        //self.session = sessionID
+        //register()
         
-        ref.child("\(self.session)").observe(.value, with: { (snapshot) in
-            let stormDict = snapshot.value as? [String: Any]
+    }
+    
+    private func register() {
+        
+        guard self.session != "" else { return }
+        
+        if databaseHandle != nil {
+            ref.removeObserver(withHandle: self.databaseHandle)
+        }
+        
+        databaseHandle = ref.child("\(self.session)").observe(.value, with: { (snapshot) in
             
-            if let stormDict = stormDict {
+            if let stormDict = snapshot.value as? [String: Any] {
                 
                 self.mode = stormDict["mode"] as? Int ?? 0
                 self.channel = stormDict["channel"] as? Int ?? 0
                 
                 if let messageList = stormDict["messages"]  as? [String: Any] {
+                    
                     self.messages = []
+                    
                     for message in messageList {
                         if let m = message.value as? [String: Any], let text = m["text"], let channel = m["channel"] {
                             if self.channel == channel as? Int ?? 0, let tx = text as? String {

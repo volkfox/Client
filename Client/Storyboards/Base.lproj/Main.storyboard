@@ -133,11 +133,40 @@
                         <outlet property="poster" destination="91s-L0-LCs" id="kFN-mN-SvC"/>
                         <outlet property="record" destination="eZk-lO-SJT" id="R6g-y4-oIK"/>
                         <outlet property="sendButton" destination="Azx-JZ-BvJ" id="N8y-7f-lU1"/>
+                        <segue destination="hhF-9B-b5g" kind="show" identifier="vote" id="Yv7-mV-grt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AQv-BT-8ao" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1737.68115942029" y="20.758928571428569"/>
+        </scene>
+        <!--Vote Table View Controller-->
+        <scene sceneID="U0g-FO-Z6A">
+            <objects>
+                <tableViewController id="hhF-9B-b5g" customClass="VoteTableViewController" customModule="Client" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="7aF-1G-7Qo">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="N1S-ku-Eyv">
+                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="N1S-ku-Eyv" id="sg4-P0-5Kg">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="hhF-9B-b5g" id="a09-f2-gf6"/>
+                            <outlet property="delegate" destination="hhF-9B-b5g" id="DBO-aP-utT"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="COy-3g-7wL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2616" y="21"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="cIb-eU-MZw">
