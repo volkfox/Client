@@ -22,7 +22,7 @@ APIs in use:
 Other IOS functions:
     - **NSNotifications**
     - **NWPathMonitor**
-    - **URL scheme**
+    - **URL scheme** (com.thundr://session?code=CODE)
 
   --------------
   Build:
