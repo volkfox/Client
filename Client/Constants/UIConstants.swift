@@ -19,5 +19,5 @@ struct UIConstants {
     static let sessionFieldColorError : UIColor = #colorLiteral(red: 0.9635595034, green: 0, blue: 0, alpha: 0.3894745291)
     static let themeColor : UIColor = #colorLiteral(red: 0.3803921569, green: 0.8196078431, blue: 0.8549019608, alpha: 1)
     static let navbarTextColor : UIColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-    static let posterColors: [UIColor] = [#colorLiteral(red: 0.3803921569, green: 0.8196078431, blue: 0.8549019608, alpha: 1), #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1), #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1), #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1), #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)]
+    static let posterColors: [UIColor] = [#colorLiteral(red: 0.3803921569, green: 0.8196078431, blue: 0.8549019608, alpha: 1), #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1), #colorLiteral(red: 0.9411764741, green: 0.4980392158, blue: 0.3529411852, alpha: 1), #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1), #colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1)]
 }
