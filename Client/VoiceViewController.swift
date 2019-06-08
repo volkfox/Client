@@ -12,7 +12,7 @@ import FirebaseDatabase
 import Network
 
 
-class ViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, QRScannerViewDelegate, UITextFieldDelegate {
+class VoiceViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, QRScannerViewDelegate, UITextFieldDelegate {
     
     private var ref : DatabaseReference!
     

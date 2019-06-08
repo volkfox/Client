@@ -35,23 +35,28 @@ class VoteTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return Backend.shared.messages.count
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "vote", for: indexPath)
 
         // Configure the cell...
-
+        if let tableCell =  cell as? VoteTableViewCell {
+            let inset = UIConstants.edgeInset
+            tableCell.content.textContainerInset = UIEdgeInsets(top: inset/2, left: inset/2, bottom: inset/2, right: inset)
+            tableCell.content.text =
+                Backend.shared.messages[indexPath.row]
+        }
         return cell
     }
-    */
+    
 
     /*
     // Override to support conditional editing of the table view.
