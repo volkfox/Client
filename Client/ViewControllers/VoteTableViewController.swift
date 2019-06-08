@@ -10,11 +10,15 @@ import UIKit
 
 class VoteTableViewController: UITableViewController {
 
+    @IBOutlet weak var tb: UITableView!
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         NotificationCenter.default.addObserver(self, selector: #selector(modeChanged), name: Notification.Name("ChangedMode"), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(channelChanged), name: Notification.Name("ChangedChannel"), object: nil)
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -30,6 +34,10 @@ class VoteTableViewController: UITableViewController {
             performSegueToReturnBack()
             self.navigationController?.setNavigationBarHidden(false, animated: false)
         }
+    }
+    
+    @objc func channelChanged() {
+        self.tb!.reloadData()
     }
     // MARK: - Table view data source
 
@@ -49,11 +57,21 @@ class VoteTableViewController: UITableViewController {
 
         // Configure the cell...
         if let tableCell =  cell as? VoteTableViewCell {
+            
             let inset = UIConstants.edgeInset
-            tableCell.content.textContainerInset = UIEdgeInsets(top: inset/2, left: inset/2, bottom: inset/2, right: inset)
+            tableCell.content.textContainerInset = UIEdgeInsets(top: inset*4, left: inset, bottom: inset, right: inset*2)
+            
+            tableCell.buttonAction = { sender in
+                return indexPath.row
+            }
             tableCell.content.text =
                 Backend.shared.messages[indexPath.row]
+            
+            tableCell.content.backgroundColor = UIConstants.posterColors[Backend.shared.channel]
+            
+            tableCell.selectionStyle = .none
         }
+        
         return cell
     }
     

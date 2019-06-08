@@ -14,9 +14,20 @@ class Backend {
     
     static let shared = Backend()
     
-    var channel = 0
+    var channel = 0 {
+        didSet {
+            self.rebuildMessages()
+            NotificationCenter.default.post(name: Notification.Name("ChangedChannel"), object: nil)
+        }
+        
+    }
+    
     var messages: [String] = []
+    var keys: [String] = []
     var mode = 0
+    
+    private var votes: [Bool] = []
+    private var messageList : [String: Any] = [:]
     
     var session = "" {
         didSet {
@@ -56,22 +67,49 @@ class Backend {
                 self.channel = stormDict["channel"] as? Int ?? 0
                 
                 if let messageList = stormDict["messages"]  as? [String: Any] {
-                    
-                    self.messages = []
-                    
-                    for message in messageList {
-                        if let m = message.value as? [String: Any], let text = m["text"], let channel = m["channel"] {
-                            if self.channel == channel as? Int ?? 0, let tx = text as? String {
-                                self.messages.append(tx)
-                            }
-                        }
-                    }
+
+                    self.messageList = messageList
+                    self.rebuildMessages()
                 }
             }
             print("brainstorm session mode: \(self.mode)")
             //print("channel: \(self.channel)")
-            //print("messages: \(self.messages)")
+            print("messages: \(self.messages)")
+            print("votes: \(self.votes)")
+            //print("keys: \(self.keys)")
         })
+    }
+    
+    private func rebuildMessages() {
+        
+        self.messages = []
+        self.keys = []
+        self.votes = []
+        
+        for message in self.messageList {
+            
+            if let m = message.value as? [String: Any], let text = m["text"], let channel = m["channel"] {
+                if self.channel == channel as? Int ?? 0, let tx = text as? String {
+                    
+                    self.messages.append(tx)
+                    self.keys.append(message.key)
+                    self.votes.append(false)
+                }
+            }
+        }
+    }
+    
+    func getVote(row: Int) -> Bool {
+        if row < votes.count {
+            return votes[row]
+        }
+        return false
+    }
+    
+    func toggleVote(row: Int) {
+        if row < votes.count {
+            votes[row] = !votes[row]
+        }
     }
     
     func updateList(key: String, value: [String : Any], completionHandler: @escaping () -> Void) {

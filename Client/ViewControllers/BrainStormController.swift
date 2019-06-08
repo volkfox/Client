@@ -20,7 +20,6 @@ class BrainStormController: UIViewController, UITextViewDelegate, SFSpeechRecogn
             Backend.shared.session = sessionID
         }
     }
-    
     //private var backend: Backend? = nil
     
     private var recording: Bool = false
@@ -49,7 +48,7 @@ class BrainStormController: UIViewController, UITextViewDelegate, SFSpeechRecogn
             poster.delegate = self
             let inset = UIConstants.edgeInset
             poster.textContainerInset = UIEdgeInsets(top: inset, left: inset, bottom: inset, right: 2*inset)
-            // dead line to update a change in NIB
+            // dead line to update a change in NIB text color
             poster.tintColorDidChange()
         }
     }
@@ -113,6 +112,8 @@ class BrainStormController: UIViewController, UITextViewDelegate, SFSpeechRecogn
         
         NotificationCenter.default.addObserver(self, selector: #selector(modeChanged), name: Notification.Name("ChangedMode"), object: nil)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(channelChanged), name: Notification.Name("ChangedChannel"), object: nil)
+        
         self.hideKeyboard() 
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         placeholderSet(poster)
@@ -135,6 +136,11 @@ class BrainStormController: UIViewController, UITextViewDelegate, SFSpeechRecogn
             
             self.performSegue(withIdentifier: "vote", sender: self)
         }
+    }
+    
+    @objc func channelChanged() {
+        
+        self.poster.backgroundColor = UIConstants.posterColors[Backend.shared.channel]
     }
     
     @objc func startStop(_ sender: UITapGestureRecognizer) {
