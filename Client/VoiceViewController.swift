@@ -5,6 +5,37 @@
 //  Created by Daniel Kharitonov on 6/3/19.
 //  Copyright © 2019 Daniel Kharitonov. All rights reserved.
 //
+//  Brainstorming App client for IOS
+
+//  Usage: 1. launch web app on https://thundrweb.herokuapp.com to start a new brainstorm (click on cloud)
+//         or join existing brainstorm: https://thundrweb.herokuapp.com/session/MPUZKX
+//  2. Scan QR code IOS in-app or launch it via IOS camera to join the brainstorm
+//  3. Submit new ideas via voice dictation
+//  4. Operate web interface to switch channels (tabs) or start voting (click on thumbup button in the upper left corner)
+//  5. Note that free hosting tier at heroku can be slow to keep webapp alive. Reload webscreen if vote counts not updating.
+//  6. Also note that voting mode is controlled from the web (cannot get out of voting screen on mobile). This per design to force group discussion and focus people on brainstorming tasks.
+//
+//  Use of APIs in use not covered in class:
+//    SIRIKit
+//    AVFoundation
+//    Google Firebase
+//
+//    Use of various IOS functions not covered in class:
+//        NSNotifications
+//        NWPathMonitor
+//        URL scheme
+
+//  Build:
+//          This project uses cocoa pods for the Firebase support, use 'pod install' to fill dependencies
+//          Open .xcworkspace to build the project
+//
+//  --------------
+//  Attribitions:
+//        Project uses code snippets from Abhilash KM for QR scanning https://github.com/abhimuralidharan
+//        Voice recognition code is modeled largely Jeff Rames voice tutorial, https://www.raywenderlich.com
+//        Dismiss keyboard extension uses technique discussed on stackexchange, no author attributed
+
+
 
 import UIKit
 import Firebase
@@ -18,7 +49,7 @@ class VoiceViewController: UIViewController, UINavigationControllerDelegate, UII
     
     private var imagePicker: UIImagePickerController!
     
-    // can be set from App Delegate with URL scheme launcher
+    // can be set from App Delegate via URL scheme launcher
     var session : String = "" {
         didSet {
             sessionInput.text = self.session
@@ -29,7 +60,7 @@ class VoiceViewController: UIViewController, UINavigationControllerDelegate, UII
         didSet {
             print("did set")
             let prefix = "com.thundr://session?code="
-            var code = self.qrData?.codeString ?? prefix + "MPPZKX"
+            var code = self.qrData?.codeString ?? prefix + "UNKNOWN"
             if  let prefixRange = self.qrData?.codeString?.range(of: prefix) {
                 code.removeSubrange(prefixRange)
                 self.session  =  code
@@ -48,7 +79,7 @@ class VoiceViewController: UIViewController, UINavigationControllerDelegate, UII
     }
     
     
-    // code input field
+    // brainstorm session code input field
     @IBOutlet weak var sessionInput: UITextField! {
         didSet {
             sessionInput.delegate = self
@@ -64,7 +95,7 @@ class VoiceViewController: UIViewController, UINavigationControllerDelegate, UII
         }
     }
     
-    
+    // Brainstorm image acting as a button for segue to dictation screen
     @IBOutlet weak var brainstorm: UIImageView! {
         didSet {
             let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.launchStorm(_:)))
@@ -87,14 +118,18 @@ class VoiceViewController: UIViewController, UINavigationControllerDelegate, UII
         // change session code if app is running and IOS camera scanned another QR
         NotificationCenter.default.addObserver(self, selector: #selector(sessionChanged), name: Notification.Name("ChangedSession"), object: nil)
         
+        // flash red in the titlebar if connection lost
+        // not it only shows in screens that have titlebar
         self.startNetworkMonitor()
     }
     
+    // don't want barTitle in this screen
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(false)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
+    // need to kill scanner if running while segue. Should never happen, just in case.
     override func viewWillDisappear(_ animated: Bool) {
         
         super.viewWillDisappear(animated)
@@ -103,6 +138,7 @@ class VoiceViewController: UIViewController, UINavigationControllerDelegate, UII
         }
     }
     
+    // see Apple docs on definitions of expensive vs cheap path
     private func startNetworkMonitor() {
         
         let monitor = NWPathMonitor()
@@ -112,7 +148,7 @@ class VoiceViewController: UIViewController, UINavigationControllerDelegate, UII
                 print("We're connected!")
                 DispatchQueue.main.async {
                     self.navigationController?.navigationBar.barTintColor = nil
-                    self.navigationController?.navigationBar.tintColor = UIConstants.themeColor
+                    self.navigationController?.navigationBar.tintColor = UIConstants.navbarTextColor
                 }
                 
             } else {
@@ -130,14 +166,13 @@ class VoiceViewController: UIViewController, UINavigationControllerDelegate, UII
         
     }
     
+    
     @objc func launchStorm(_ sender: UITapGestureRecognizer) {
-        
         self.transition()
     }
     
     
     @objc func launchCamera(_ sender: UITapGestureRecognizer) {
-        print("tapped")
         
         scannerView.frame = UIScreen.main.bounds
         if !scannerView.isRunning {
@@ -145,6 +180,7 @@ class VoiceViewController: UIViewController, UINavigationControllerDelegate, UII
         }
     }
     
+    // dismiss QR window at any touch
     @objc func dismissQR (_ sender: UITapGestureRecognizer) {
         
         if scannerView.isRunning {
@@ -164,10 +200,7 @@ class VoiceViewController: UIViewController, UINavigationControllerDelegate, UII
     
     func transition() {
         
-        // some session code error checking needed here
-        //if self.session.count == UIConstants.sessionCodeCounter {
-        //    self.performSegue(withIdentifier: "brainstorm", sender: self)
-        //}
+        // session code validity check: refuse transition if Firebase does not have sessionID node
         
         ref.child(session).observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
@@ -195,7 +228,7 @@ class VoiceViewController: UIViewController, UINavigationControllerDelegate, UII
     }
     
     func qrScanningDidFail() {
-        print("failure")
+        print("QR scan failure")
     }
     
     func qrScanningSucceededWithCode(_ str: String?) {
@@ -230,23 +263,7 @@ class VoiceViewController: UIViewController, UINavigationControllerDelegate, UII
     }
 }
 
-extension UIViewController
-{
-    func hideKeyboard()
-    {
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(
-            target: self,
-            action: #selector(UIViewController.dismissKeyboard))
-        
-        tap.cancelsTouchesInView = false
-        view.addGestureRecognizer(tap)
-    }
-    
-    @objc func dismissKeyboard()
-    {
-        view.endEditing(true)
-    }
-}
+
 
 
 

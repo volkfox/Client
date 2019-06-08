@@ -8,10 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		1F205E60FDCC0C671BF0B34C /* Pods_Client.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188FD653EB35CC952A9112A6 /* Pods_Client.framework */; };
+		5E4D002722AC5B1F009D5438 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4D002622AC5B1F009D5438 /* Extensions.swift */; };
 		5E6614AF22AA29F100D9C163 /* VoteTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6614AE22AA29F100D9C163 /* VoteTableViewController.swift */; };
 		5E682B0822AB7CB000E78CDB /* VoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E682B0722AB7CB000E78CDB /* VoteTableViewCell.swift */; };
 		5E7C0C1322A65DAE00BCF136 /* UIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C0C1222A65DAE00BCF136 /* UIConstants.swift */; };
-		5E7C0C1522A667C400BCF136 /* barcode.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 5E7C0C1422A667C400BCF136 /* barcode.pdf */; };
 		5E7C0C1722A746B500BCF136 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E7C0C1622A746B500BCF136 /* Assets.xcassets */; };
 		5E7C0C1C22A91A0C00BCF136 /* record_off.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5E7C0C1A22A91A0C00BCF136 /* record_off.mp3 */; };
 		5E7C0C1D22A91A0C00BCF136 /* record_on.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5E7C0C1B22A91A0C00BCF136 /* record_on.mp3 */; };
@@ -29,10 +29,10 @@
 /* Begin PBXFileReference section */
 		10EF616F04235828F9842141 /* Pods-Client.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Client.release.xcconfig"; path = "Target Support Files/Pods-Client/Pods-Client.release.xcconfig"; sourceTree = "<group>"; };
 		188FD653EB35CC952A9112A6 /* Pods_Client.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Client.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5E4D002622AC5B1F009D5438 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		5E6614AE22AA29F100D9C163 /* VoteTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteTableViewController.swift; sourceTree = "<group>"; };
 		5E682B0722AB7CB000E78CDB /* VoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteTableViewCell.swift; sourceTree = "<group>"; };
 		5E7C0C1222A65DAE00BCF136 /* UIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIConstants.swift; sourceTree = "<group>"; };
-		5E7C0C1422A667C400BCF136 /* barcode.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = barcode.pdf; sourceTree = "<group>"; };
 		5E7C0C1622A746B500BCF136 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5E7C0C1A22A91A0C00BCF136 /* record_off.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = record_off.mp3; sourceTree = "<group>"; };
 		5E7C0C1B22A91A0C00BCF136 /* record_on.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = record_on.mp3; sourceTree = "<group>"; };
@@ -134,10 +134,10 @@
 		5EC836DE22A5B65100DBD43B /* Client */ = {
 			isa = PBXGroup;
 			children = (
-				5E682B0922AB7EB800E78CDB /* Views */,
-				5E7C0C2222A99A6200BCF136 /* Model */,
 				5EC836E122A5B65100DBD43B /* VoiceViewController.swift */,
 				5EC836FA22A6175F00DBD43B /* ViewControllers */,
+				5E682B0922AB7EB800E78CDB /* Views */,
+				5E7C0C2222A99A6200BCF136 /* Model */,
 				5EC836FD22A617E900DBD43B /* QR */,
 				5E7C0C1F22A92F5B00BCF136 /* Storyboards */,
 				5EC836DF22A5B65100DBD43B /* AppDelegate.swift */,
@@ -153,7 +153,6 @@
 		5EC836F322A5B98600DBD43B /* Constants */ = {
 			isa = PBXGroup;
 			children = (
-				5E7C0C1422A667C400BCF136 /* barcode.pdf */,
 				5E7C0C1222A65DAE00BCF136 /* UIConstants.swift */,
 			);
 			path = Constants;
@@ -164,6 +163,7 @@
 			children = (
 				5EC836FB22A617AB00DBD43B /* BrainStormController.swift */,
 				5E6614AE22AA29F100D9C163 /* VoteTableViewController.swift */,
+				5E4D002622AC5B1F009D5438 /* Extensions.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -239,7 +239,6 @@
 			files = (
 				5EC836EA22A5B65300DBD43B /* LaunchScreen.storyboard in Resources */,
 				5EC8370122A6377900DBD43B /* GoogleService-Info.plist in Resources */,
-				5E7C0C1522A667C400BCF136 /* barcode.pdf in Resources */,
 				5E7C0C1D22A91A0C00BCF136 /* record_on.mp3 in Resources */,
 				5E7C0C1C22A91A0C00BCF136 /* record_off.mp3 in Resources */,
 				5EC836E522A5B65100DBD43B /* Main.storyboard in Resources */,
@@ -310,6 +309,7 @@
 				5EC836E222A5B65100DBD43B /* VoiceViewController.swift in Sources */,
 				5EC836F722A6003A00DBD43B /* QRScannerView.swift in Sources */,
 				5EC836E022A5B65100DBD43B /* AppDelegate.swift in Sources */,
+				5E4D002722AC5B1F009D5438 /* Extensions.swift in Sources */,
 				5EC836FC22A617AB00DBD43B /* BrainStormController.swift in Sources */,
 				5E682B0822AB7CB000E78CDB /* VoteTableViewCell.swift in Sources */,
 				5E7C0C2122A99A0A00BCF136 /* Backend.swift in Sources */,

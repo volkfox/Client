@@ -5,6 +5,20 @@
 //  Created by Daniel Kharitonov on 6/6/19.
 //  Copyright © 2019 Daniel Kharitonov. All rights reserved.
 //
+//  Model abstraction via Google Firebase
+//  Data Schema:
+//  root - (sessionID) - messages (list)
+//                     - votes (list)
+//                     - mode (0/1)          # 0 = submit ideas, 1 = vote on ideas
+//                     - channel (integer)   # up to 5 channels can be switched for one sessionID
+// example:
+// (MPUZKX)---
+//            | channel: 0
+//            | mode: 0
+//            | messages:
+//                     | (LZkNeIvUdzUjvWGGVTO)---
+//                                               | channel: 2
+//                                               | text: "Places to go on CAMPUS!"
 
 import Foundation
 import Firebase
@@ -14,20 +28,26 @@ class Backend {
     
     static let shared = Backend()
     
+    var mode = 0
     var channel = 0 {
         didSet {
             self.rebuildMessages()
+            // need to display a different set of ideas if voting is going on
             NotificationCenter.default.post(name: Notification.Name("ChangedChannel"), object: nil)
         }
     }
     
-    var messages: [String] = []
-    var keys: [String] = []
-    var mode = 0
+    private var messageList : [String: Any] = [:] // all ideas for sessionID in raw Firebase dict format
+    private var ideas: [(key: String, text: String, vote: Bool)] = []  // ideas for active channel only
     
-    private var votes: [Bool] = []
-    private var messageList : [String: Any] = [:]
+    // acessible by vote screen controller to set a number of items to display
+    var count: Int {
+        get {
+            return self.ideas.count
+        }
+    }
     
+    // sessionID
     var session = "" {
         didSet {
             register()
@@ -54,17 +74,15 @@ class Backend {
             ref.removeObserver(withHandle: self.modeHandle)
             ref.removeObserver(withHandle: self.channelHandle)
             ref.removeObserver(withHandle: self.ideasHandle)
-
         }
         
         modeHandle = ref.child("\(self.session)/mode").observe(.value, with: { (snapshot) in
             
             if let mode = snapshot.value {
                 self.mode = mode as? Int ?? 0
+                print("new mode: \(self.mode)")
                 NotificationCenter.default.post(name: Notification.Name("ChangedMode"), object: nil)
             }
-            print("new mode: \(self.mode)")
-            
         })
         
         channelHandle = ref.child("\(self.session)/channel").observe(.value, with: { (snapshot) in
@@ -77,79 +95,69 @@ class Backend {
         
         ideasHandle = ref.child("\(self.session)/messages").observe(.value, with: { (snapshot) in
             
-            //print("mess \(snapshot.value)")
-            
             if let messageList = snapshot.value as? [String: Any] {
                 self.messageList = messageList
                 self.rebuildMessages()
             }
-            print("messages: \(self.messages)")
-            print("votes: \(self.votes)")
-            print("keys: \(self.keys)")
+            //print("messages: \(self.messages)")
+            //print("votes: \(self.votes)")
+            //print("keys: \(self.keys)")
         })
         
-        /*
-        databaseHandle = ref.child("\(self.session)").observe(.value, with: { (snapshot) in
-            
-            if let stormDict = snapshot.value as? [String: Any] {
-                
-                let newmode = stormDict["mode"] as? Int ?? 0
-                
-                if self.mode != newmode {
-                    self.mode = newmode
-                    NotificationCenter.default.post(name: Notification.Name("ChangedMode"), object: nil)
-                } else {
-                    self.mode = newmode
-                }
-                
-                self.channel = stormDict["channel"] as? Int ?? 0
-                
-                if let messageList = stormDict["messages"]  as? [String: Any] {
-
-                    self.messageList = messageList
-                    self.rebuildMessages()
-                }
-            }
-            print("brainstorm session mode: \(self.mode)")
-            //print("channel: \(self.channel)")
-            print("messages: \(self.messages)")
-            print("votes: \(self.votes)")
-            print("keys: \(self.keys)")
-        }) */
     }
     
+    // convert raw Firebase dict into array of active channel ideas
+    // updating the list means vote controller must be updated too
     private func rebuildMessages() {
         
-        self.messages = []
-        self.keys = []
-        self.votes = []
+        self.ideas = []
         
         for message in self.messageList {
             
             if let m = message.value as? [String: Any], let text = m["text"], let channel = m["channel"] {
                 if self.channel == channel as? Int ?? 0, let tx = text as? String {
-
-                    self.messages.append(tx)
-                    self.keys.append(message.key)
-                    self.votes.append(false)
+                    
+                    self.ideas.append((message.key, tx, false))
                 }
             }
         }
+        self.ideas.sort(by: { $0.0 > $1.0 }) // get around firebase returning list entries in random order
+        NotificationCenter.default.post(name: Notification.Name("ChangedMessageList"), object: nil)
     }
     
+    // Note vote status (true/false) is only valid locally for duration of session
+    // restarting the session resets vote status (so you can vote muptiple times if restarting)
     func getVote(row: Int) -> Bool {
-        if row < votes.count {
-            return votes[row]
+        if row < ideas.count {
+            return ideas[row].vote
         }
         return false
     }
     
     func toggleVote(row: Int) {
-        if row < votes.count {
-            votes[row] = !votes[row]
+        if row < ideas.count {
+            ideas[row].vote = !ideas[row].vote
         }
     }
     
+    // we need to store idea's key from Firebase to submit a vote for it
+    func getKey(row: Int) -> String {
+        if row < ideas.count {
+            return ideas[row].key
+        }
+        return "666"
+    }
+    
+    func getText(row: Int) -> String {
+        if row < ideas.count {
+            return ideas[row].text
+        }
+        return "N/A"
+    }
+    
+
+    
+    // add new post to a firebase list rooted at key, run completionHandler closure on success
     func updateList(key: String, value: [String : Any], completionHandler: @escaping () -> Void) {
         
         let listPath = "\(self.session)/\(key)"

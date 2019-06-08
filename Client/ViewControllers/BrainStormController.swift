@@ -5,7 +5,7 @@
 //  Created by Daniel Kharitonov on 6/3/19.
 //  Copyright © 2019 Daniel Kharitonov. All rights reserved.
 //
-//  SIRIText code credit: Jen Sipila, Apple documentation
+//  SIRIKit code attribution: Jeff Rames voice tutorial
 
 import UIKit
 import Firebase
@@ -20,7 +20,6 @@ class BrainStormController: UIViewController, UITextViewDelegate, SFSpeechRecogn
             Backend.shared.session = sessionID
         }
     }
-    //private var backend: Backend? = nil
     
     private var recording: Bool = false
     private var recordingIsEnabled = false
@@ -32,12 +31,12 @@ class BrainStormController: UIViewController, UITextViewDelegate, SFSpeechRecogn
     
     var player: AVAudioPlayer!
     
+    // recording image acting as a button
     @IBOutlet weak var record: UIImageView! {
         
         didSet {
             
             let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.startStop(_:)))
-            
             record.isUserInteractionEnabled = true
             record.addGestureRecognizer(gestureRecognizer)
         }
@@ -66,12 +65,14 @@ class BrainStormController: UIViewController, UITextViewDelegate, SFSpeechRecogn
         }
     }
     
+    // this button is disabled when voice recognition runs
     @IBOutlet weak var sendButton: UIButton! {
         didSet {
             sendButton.setTitle("Recording", for: .disabled)
         }
     }
     
+    // sending function animates textview if successively posted to Google Firebase
     @IBAction func sendToGoogle(_ sender: UIButton) {
         
         guard let input = poster.text else { return }
@@ -94,17 +95,18 @@ class BrainStormController: UIViewController, UITextViewDelegate, SFSpeechRecogn
         let transitionOptions = UIView.AnimationOptions.transitionCurlUp
         
         UIView.transition(with: self.poster,
-            duration: 1.5,
-            options: [transitionOptions, .showHideTransitionViews],
-            animations: nil,
-            completion: { _ in
-                //can play a sound here but too annoying...
+                          duration: 1.5,
+                          options: [transitionOptions, .showHideTransitionViews],
+                          animations: nil,
+                          completion: { _ in
+                            //can play a sound here but would be too annoying...
         })
         
     }
     
-     // MARK: - ViewDidLoad
-    
+    // MARK: - ViewDidLoad
+    // need to listen to changes in channel, session and mode
+    // don't care about changes in messagelist here
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -120,7 +122,7 @@ class BrainStormController: UIViewController, UITextViewDelegate, SFSpeechRecogn
         // Do any additional setup after loading the view.
     }
     
-    
+    // forces controller to re-read session from AppDelegate if QR was scanned while app running
     @objc func sessionChanged() {
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -129,17 +131,19 @@ class BrainStormController: UIViewController, UITextViewDelegate, SFSpeechRecogn
         }
     }
     
+    // mode change flips client into voting mode
+    // note the vote might be in progress when app starts so it will go there immediately
+    // also note vote mode is only controlled by the moderator
     @objc func modeChanged() {
         print("new mode: \(Backend.shared.mode)")
         
         if Backend.shared.mode == 1 {
-            
             self.performSegue(withIdentifier: "vote", sender: self)
         }
     }
     
+    // channel change switches poster color
     @objc func channelChanged() {
-        
         self.poster.backgroundColor = UIConstants.posterColors[Backend.shared.channel]
     }
     
@@ -344,22 +348,11 @@ class BrainStormController: UIViewController, UITextViewDelegate, SFSpeechRecogn
         }
     }
     
+    // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "vote", let viewController = segue.destination as? VoteTableViewController {
+        if segue.identifier == "vote", let _ = segue.destination as? VoteTableViewController {
             //viewController.sessionID = self.session
             print("segueing")
         }
     }
-    
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
 }
