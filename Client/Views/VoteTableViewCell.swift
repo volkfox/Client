@@ -10,43 +10,26 @@ import UIKit
 
 class VoteTableViewCell: UITableViewCell {
     
+    var liked: Bool = false {
+        didSet {
+            if liked {
+               self.likeButton.setImage(UIImage(named: "thumb-black-1"), for: .normal)
+            } else {
+               self.likeButton.setImage(UIImage(named: "thumb-white-1"), for: .normal)
+            }
+        }
+    }
+    
     @IBOutlet weak var content: UITextView!
     @IBOutlet weak var likeButton: UIButton!
     
     @IBAction func like(_ sender: UIButton) {
-        
-        let row = self.buttonAction!(sender)
-        let likedBefore = Backend.shared.getVote(row: row)
-        
-        if !likedBefore {
 
-            let vote = [
-                "key": Backend.shared.keys[row] as Any,
-                "channel": Backend.shared.channel as Any,
-                "vote": 1 as Any
-                ] as [String : Any]
-            
-            Backend.shared.updateList(key: "votes", value: vote, completionHandler: {
-                self.likeButton.setImage(UIImage(named: "thumb-black-1"), for: .normal)
-                Backend.shared.toggleVote(row: row)
-            })
-            
-        } else {
-            
-            let vote = [
-                "key": Backend.shared.keys[row] as Any,
-                "channel": Backend.shared.channel as Any,
-                "vote": -1 as Any
-                ] as [String : Any]
-            
-            Backend.shared.updateList(key: "votes", value: vote, completionHandler: {
-                self.likeButton.setImage(UIImage(named: "thumb-white-1"), for: .normal)
-                Backend.shared.toggleVote(row: row)
-            })
-        }
+        self.liked = !self.liked
+        self.buttonAction?(sender)
     }
     
-    var buttonAction: ((Any) -> Int)?
+    var buttonAction: ((Any) -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()

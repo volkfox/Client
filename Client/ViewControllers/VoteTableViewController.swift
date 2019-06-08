@@ -42,12 +42,12 @@ class VoteTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
+
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
+        
         return Backend.shared.messages.count
     }
 
@@ -62,10 +62,26 @@ class VoteTableViewController: UITableViewController {
             tableCell.content.textContainerInset = UIEdgeInsets(top: inset*4, left: inset, bottom: inset, right: inset*2)
             
             tableCell.buttonAction = { sender in
-                return indexPath.row
+                
+                var voice = 0
+                Backend.shared.toggleVote(row: indexPath.row)
+                if Backend.shared.getVote(row: indexPath.row) {
+                    voice = 1 } else {
+                    voice = -1}
+                
+                let vote = [
+                    "key": Backend.shared.keys[indexPath.row] as Any,
+                    "channel": Backend.shared.channel as Any,
+                    "vote": voice as Any
+                    ] as [String : Any]
+                
+                Backend.shared.updateList(key: "votes", value: vote, completionHandler: {})
             }
+            
             tableCell.content.text =
                 Backend.shared.messages[indexPath.row]
+            
+            tableCell.liked = Backend.shared.getVote(row: indexPath.row)
             
             tableCell.content.backgroundColor = UIConstants.posterColors[Backend.shared.channel]
             

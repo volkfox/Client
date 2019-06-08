@@ -19,7 +19,6 @@ class Backend {
             self.rebuildMessages()
             NotificationCenter.default.post(name: Notification.Name("ChangedChannel"), object: nil)
         }
-        
     }
     
     var messages: [String] = []
@@ -35,7 +34,10 @@ class Backend {
         }
     }
     
-    private var databaseHandle: DatabaseHandle!
+    private var modeHandle: DatabaseHandle!
+    private var channelHandle: DatabaseHandle!
+    private var ideasHandle: DatabaseHandle!
+    
     private var ref : DatabaseReference!
     
     private init(){
@@ -47,10 +49,46 @@ class Backend {
         guard self.session != "" else { return }
         self.mode = 0
         
-        if databaseHandle != nil {
-            ref.removeObserver(withHandle: self.databaseHandle)
+        if modeHandle != nil {
+            
+            ref.removeObserver(withHandle: self.modeHandle)
+            ref.removeObserver(withHandle: self.channelHandle)
+            ref.removeObserver(withHandle: self.ideasHandle)
+
         }
         
+        modeHandle = ref.child("\(self.session)/mode").observe(.value, with: { (snapshot) in
+            
+            if let mode = snapshot.value {
+                self.mode = mode as? Int ?? 0
+                NotificationCenter.default.post(name: Notification.Name("ChangedMode"), object: nil)
+            }
+            print("new mode: \(self.mode)")
+            
+        })
+        
+        channelHandle = ref.child("\(self.session)/channel").observe(.value, with: { (snapshot) in
+            
+            if let channel = snapshot.value {
+                self.channel = channel as? Int ?? 0
+            }
+            print("new channel: \(self.channel)")
+        })
+        
+        ideasHandle = ref.child("\(self.session)/messages").observe(.value, with: { (snapshot) in
+            
+            //print("mess \(snapshot.value)")
+            
+            if let messageList = snapshot.value as? [String: Any] {
+                self.messageList = messageList
+                self.rebuildMessages()
+            }
+            print("messages: \(self.messages)")
+            print("votes: \(self.votes)")
+            print("keys: \(self.keys)")
+        })
+        
+        /*
         databaseHandle = ref.child("\(self.session)").observe(.value, with: { (snapshot) in
             
             if let stormDict = snapshot.value as? [String: Any] {
@@ -76,8 +114,8 @@ class Backend {
             //print("channel: \(self.channel)")
             print("messages: \(self.messages)")
             print("votes: \(self.votes)")
-            //print("keys: \(self.keys)")
-        })
+            print("keys: \(self.keys)")
+        }) */
     }
     
     private func rebuildMessages() {
@@ -90,7 +128,7 @@ class Backend {
             
             if let m = message.value as? [String: Any], let text = m["text"], let channel = m["channel"] {
                 if self.channel == channel as? Int ?? 0, let tx = text as? String {
-                    
+
                     self.messages.append(tx)
                     self.keys.append(message.key)
                     self.votes.append(false)
