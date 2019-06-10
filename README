@@ -55,38 +55,88 @@ user:dkharito (Kharitonov, Daniel)
 
 # Featurettes 
   
-  - App tracks connectivity status in idea submission screen. If network lost/disbled, titlebar goes red.
+  - App tracks connectivity status in idea submission screen. If network lost/disabled, titlebar goes red.
   - App tracks switching channels in webapp and reads/writes post-its accordingly
   - App indicates change of the channel by alternating post-it backgrounds
   - App tracks changes to post-its on webscreen. Editing or deleting a post-it updates mobile app while voting
   - App prevents the user from joining a non-existent brainstorm (by entering code not in the database)
   - App uses flashing animation and chime sound to indicate recording status
+  - App uses FT linear indicator to show network activity indicator when submitting an idea (works on iphone X)
   - App uses curling animation to show the post-it was successfully saved in backend
    
- --------------
+--------------
  
- APIs in use:
+ # Large APIs in use:
     - **SIRIKit**
+    - **AVFoundation**
     - **AVFoundation**
     - **Google Firebase**
 
- Other IOS functions:
+ # Other IOS functions:
     - **NSNotifications**
     - **NWPathMonitor**
     - **URL scheme** (com.thundr://session?code=CODE)
 
- --------------
-  Build:
+--------------
+  # Build:
     
-      This project uses cocoa pods for the Firebase support, use 'pod install' to fill dependencies
+      This project uses cocoa pods, run 'pod install' to fill dependencies
       Use Client.xcworkspace to build this project
 
-  --------------
-  Attribitions:
-  
+--------------
+  # Attribitions:
   
         Project uses code snippets from Abhilash KM for QR scanning https:github.com/abhimuralidharan
         Voice recognition code is modeled largely Jeff Rames voice tutorial, https:www.raywenderlich.com
+        Firebase pod is by Google Inc, FTLinearActivity pod is by Ortwin Gentz, FutureTap Gmbh.
         Dismiss keyboard extension uses technique discussed on stackexchange, no author could be found.
 
+--------------
+# Self-Grading 
 
+
+1. Breadth (1 to 2 points per substantive iOS API)
+  
+   4 points for IOS Speech Recognition, URL Scheme and Image Picker API 
+
+2. Not-Covered-In-Lecture (up to 4 bonus points)
+
+   4 points: Google Firebase (3rd Party), NWPathMonitor, AVPlayer 
+
+3. Miscellaneous API (up to 4 points)
+ 
+   4 points: TableView API, Controls API, Segue API, Animation API, NSNotifications, networkActivityIndicatorVisible, etc.    
+
+4. Creativity (up to 3 points)
+
+   2 points: App is actuall useful
+
+5. UI Design (up to 3 points)
+
+   2 points: Everything you need, nothing you don't need
+
+6. Coding Style (up to 3 points)
+
+   2 points: there are comments...
+
+7. Stability and Usability (up to 2 points)
+
+   2 points: usable and stable
+
+8. Proposal (up to 2 points)
+
+   2 points: clear proposal submitted on time
+
+9. Checkpoint (up to 2 points)
+
+   0 points: no checkpoint (no time for that)
+
+10. Presentation (up to 2 points)
+
+   1 point: wrong timing, very busy dead week
+
+---------------
+
+  Total 4+4+4+2+2+2+2+2+1 = 23 pts
+
+.

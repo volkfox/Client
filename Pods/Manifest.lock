@@ -27,6 +27,7 @@ PODS:
     - FirebaseCore (~> 5.3)
     - GoogleUtilities/Environment (~> 5.3)
     - GoogleUtilities/UserDefaults (~> 5.3)
+  - FTLinearActivityIndicator (1.1.2)
   - GoogleAppMeasurement (5.6.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
     - GoogleUtilities/MethodSwizzler (~> 5.2)
@@ -61,6 +62,7 @@ PODS:
 DEPENDENCIES:
   - Firebase/Core
   - Firebase/Database
+  - FTLinearActivityIndicator
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -70,6 +72,7 @@ SPEC REPOS:
     - FirebaseCore
     - FirebaseDatabase
     - FirebaseInstanceID
+    - FTLinearActivityIndicator
     - GoogleAppMeasurement
     - GoogleUtilities
     - leveldb-library
@@ -82,11 +85,12 @@ SPEC CHECKSUMS:
   FirebaseCore: c0c4befb82374d6aef64d800e569f47625352edc
   FirebaseDatabase: 23acb0c53cd4d4070a427b60100b2e4aaa97c45d
   FirebaseInstanceID: 4522aad88f69297622062c0e9ffccdee3dd9b151
+  FTLinearActivityIndicator: 795016cde13c7d7e9ee28e23f05025c6aedbafce
   GoogleAppMeasurement: 008e04ecd8efedd97a693aea8634aefe220bd26e
   GoogleUtilities: 111a012f4c3a29c9e7c954c082fafd6ee3c999c0
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
 
-PODFILE CHECKSUM: ff6d2f32e7f182132dc9910037c514ad45fd039e
+PODFILE CHECKSUM: 8f52d527c7711bc8cb8e500a2252ea997a790994
 
 COCOAPODS: 1.6.1

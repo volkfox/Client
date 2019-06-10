@@ -90,7 +90,7 @@ class BrainStormController: UIViewController, UITextViewDelegate, SFSpeechRecogn
         Backend.shared.updateList(key: "messages", value: message, completionHandler: {
             self.poster.text = ""
             self.curlUp()
-            //UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
         })
     }
     

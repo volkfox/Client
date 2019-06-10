@@ -9,7 +9,7 @@
 
 import UIKit
 import Firebase
-
+import FTLinearActivityIndicator
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -22,6 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     internal func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
         //Database.database().isPersistenceEnabled = true
+        
+        UIApplication.configureLinearNetworkActivityIndicatorIfNeeded()
         print("finished launching")
         return true
     }
