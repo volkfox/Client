@@ -159,7 +159,7 @@ class VoiceViewController: UIViewController, UINavigationControllerDelegate, UII
                 }
             }
             
-            print(path.isExpensive)
+            //print(path.isExpensive)
         }
         let queue = DispatchQueue(label: "Monitor")
         monitor.start(queue: queue)
@@ -168,7 +168,15 @@ class VoiceViewController: UIViewController, UINavigationControllerDelegate, UII
     
     
     @objc func launchStorm(_ sender: UITapGestureRecognizer) {
-        self.transition()
+        
+        if self.session != ""  {
+            self.transition()
+        } else {
+            if let input = sessionInput.text {
+                self.session = input
+                self.transition()
+            }
+        }
     }
     
     
@@ -201,6 +209,7 @@ class VoiceViewController: UIViewController, UINavigationControllerDelegate, UII
     func transition() {
         
         // session code validity check: refuse transition if Firebase does not have sessionID node
+        
         
         ref.child(session).observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value

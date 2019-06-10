@@ -18,8 +18,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bolt copy" translatesAutoresizingMaskIntoConstraints="NO" id="7Qf-YZ-zVy">
-                                <rect key="frame" x="71" y="150" width="272" height="195"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="barcode" translatesAutoresizingMaskIntoConstraints="NO" id="hQx-MM-oXM">
+                                <rect key="frame" x="124" y="668" width="166" height="145"/>
                             </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="enter code" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="xb7-zO-0bT">
                                 <rect key="frame" x="52" y="511" width="310" height="58"/>
@@ -34,11 +34,11 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </textField>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="barcode" translatesAutoresizingMaskIntoConstraints="NO" id="hQx-MM-oXM">
-                                <rect key="frame" x="124" y="668" width="166" height="145"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bolt copy" translatesAutoresizingMaskIntoConstraints="NO" id="7Qf-YZ-zVy">
+                                <rect key="frame" x="71" y="250" width="272" height="195"/>
                             </imageView>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8bE-8N-cpa" customClass="QRScannerView" customModule="Client" customModuleProvider="target">
-                                <rect key="frame" x="87" y="364" width="240" height="128"/>
+                                <rect key="frame" x="52" y="453" width="310" height="39"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
@@ -48,9 +48,9 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="hQx-MM-oXM" secondAttribute="bottom" constant="49" id="57F-nT-ZUj"/>
                             <constraint firstItem="hQx-MM-oXM" firstAttribute="top" secondItem="xb7-zO-0bT" secondAttribute="bottom" constant="99" id="5ZE-TT-QLh"/>
                             <constraint firstItem="xb7-zO-0bT" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="52" id="7e6-fI-5sA"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="7Qf-YZ-zVy" secondAttribute="bottom" constant="517" id="Bax-yh-jc0"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="7Qf-YZ-zVy" secondAttribute="bottom" constant="417" id="Bax-yh-jc0"/>
                             <constraint firstItem="xb7-zO-0bT" firstAttribute="centerX" secondItem="7Qf-YZ-zVy" secondAttribute="centerX" id="JTC-cs-Z1u"/>
-                            <constraint firstItem="7Qf-YZ-zVy" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="62" id="MBn-a6-0Qs"/>
+                            <constraint firstItem="7Qf-YZ-zVy" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="162" id="MBn-a6-0Qs"/>
                             <constraint firstItem="7Qf-YZ-zVy" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="N7I-ty-hCP"/>
                             <constraint firstItem="7Qf-YZ-zVy" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="71" id="bKd-ht-bR6"/>
                             <constraint firstItem="hQx-MM-oXM" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="124" id="f5D-cB-Api"/>
@@ -70,7 +70,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="919" y="21"/>
+            <point key="canvasLocation" x="918.84057971014499" y="20.758928571428569"/>
         </scene>
         <!--Brain Storm Controller-->
         <scene sceneID="sj7-7G-UKs">
