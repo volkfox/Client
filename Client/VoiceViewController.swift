@@ -169,13 +169,9 @@ class VoiceViewController: UIViewController, UINavigationControllerDelegate, UII
     
     @objc func launchStorm(_ sender: UITapGestureRecognizer) {
         
-        if self.session != ""  {
+        if let input = sessionInput.text, input.count == UIConstants.sessionCodeCounter {
+            self.session = input
             self.transition()
-        } else {
-            if let input = sessionInput.text {
-                self.session = input
-                self.transition()
-            }
         }
     }
     
@@ -258,7 +254,7 @@ class VoiceViewController: UIViewController, UINavigationControllerDelegate, UII
         
         textField.resignFirstResponder()
         
-        if let input = sessionInput.text {
+        if let input = sessionInput.text, input.count == UIConstants.sessionCodeCounter {
             self.session = input
             self.transition()
         }
