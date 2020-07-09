@@ -65,7 +65,7 @@ DEPENDENCIES:
   - FTLinearActivityIndicator
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - Firebase
     - FirebaseAnalytics
     - FirebaseAuthInterop
@@ -93,4 +93,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 8f52d527c7711bc8cb8e500a2252ea997a790994
 
-COCOAPODS: 1.6.1
+COCOAPODS: 1.9.3
