@@ -1,4 +1,4 @@
-user:dkharito (Kharitonov, Daniel)
+
 
 # Client
 
@@ -91,52 +91,6 @@ user:dkharito (Kharitonov, Daniel)
         Firebase pod is by Google Inc, FTLinearActivity pod is by Ortwin Gentz, FutureTap Gmbh.
         Dismiss keyboard extension uses technique discussed on stackexchange, no author could be found.
 
---------------
-# Self-Grading 
 
-
-1. Breadth (1 to 2 points per substantive iOS API)
-  
-   4 points for IOS Speech Recognition, URL Scheme and Image Picker API 
-
-2. Not-Covered-In-Lecture (up to 4 bonus points)
-
-   4 points: Google Firebase (3rd Party), NWPathMonitor, AVPlayer 
-
-3. Miscellaneous API (up to 4 points)
- 
-   4 points: TableView API, Controls API, Segue API, Animation API, NSNotifications, networkActivityIndicatorVisible, etc.    
-
-4. Creativity (up to 3 points)
-
-   2 points: App is actuall useful
-
-5. UI Design (up to 3 points)
-
-   2 points: Everything you need, nothing you don't need
-
-6. Coding Style (up to 3 points)
-
-   2 points: there are comments...
-
-7. Stability and Usability (up to 2 points)
-
-   2 points: usable and stable
-
-8. Proposal (up to 2 points)
-
-   2 points: clear proposal submitted on time
-
-9. Checkpoint (up to 2 points)
-
-   0 points: no checkpoint (no time for that)
-
-10. Presentation (up to 2 points)
-
-   1 point: wrong timing, very busy dead week
-
----------------
-
-  Total 4+4+4+2+2+2+2+2+1 = 23 pts
 
 .
