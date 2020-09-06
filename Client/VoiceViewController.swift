@@ -255,7 +255,7 @@ class VoiceViewController: UIViewController, UINavigationControllerDelegate, UII
         textField.resignFirstResponder()
         
         if let input = sessionInput.text, input.count == UIConstants.sessionCodeCounter {
-            self.session = input
+            self.session = input.uppercased()
             self.transition()
         }
         return true
