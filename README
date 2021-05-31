@@ -1,96 +1,30 @@
 
 
-# This is the IOS Client implementation. See https://github.com/volkfox/ThundrWeb for more app details.
+# This is the IOS Client implementation for accessibility client. 
 
-  Thundr Brainstorming App client (Swift)
 
 # Purpose
 
-  Democratize d-thinking and brainstorming.
+  A tool for submitting voice feedback on webpage design flaws for accessibility
 
 # Target platform
 
+  IOS.
   This app uses camera, so not recommended on simulator.
   It works on the ipad, but is mainly designed for iphones.
  
 # Architecture
 
-  Thundr conists of the web app and a mobile client.
-  To start the webapp, open https://thundrweb.herokuapp.com
-  Clicking on "cloud" image creates a new empty brainstorm.
-  To check out an existing brainstorm, try https://thundrweb.herokuapp.com/session/MPUZKX
+  This app relied on pages instrumented with QR code to designate the goal for submission.
+  Once a QR code is scanned (or eqivalent text string typed in), the app allows for voice feedback transcription sent to Firebase backend
 
-  Brainstorm session is a shared-group webscreen managed by discussion moderator.
-  Anyone who knows the session code (shown in the right corner) can join the session with their mobile app.
-  There are also several brainstorm channels within the session switched in tabs of the webapp.
+# Usage
 
-  * Note that free hosting tier can be slow to start and may sleep agressively
-    If webscreen stops updating, reload the webpage to wake up heroku
+  When the user opens the app, they can scan the QR directly with phone camera. After that, they are in submssion screen.
+  going back one menu brings them again to QR scan to annotate another page.
 
-# Main features
+# Testing without QR
 
-  Mobile app has three main tasks: (1) join the brainstorm, (2) submit ideas and (3) vote on ideas.
-
-  (1)
-  To join the brainstorm, a user can do one of the four things from the 1st mobile screen:
-
-  a. Type the code shown in webapp (right corner)
-  b. Click on QR icon and point camera to QR code on webscreen to scan (tap anywhere to cancel)
-  c. Open the app using system IOS camera QR scanner
-  d. Use system IOS camera to update app running in background with a new brainstorm code
-
-  (2)
-  Once the session is opened in Thund mobile app, user can submit ideas.
-  Ideas are submitted by either typing in "post-it" note, or dictating (via automatic transcription).
- 
-  (3)
-  App can be switched into "voting mode" only by moderator of webscreen.
-  Clicking on "thumbs up" icon in left upper corner of webscreen forces mobile clients into voting mode.
- 
-  In voting mode, mobile client is presented with a list of all ideas and can vote on them.
-  Votes are collected in webapp. Voting ends when the moderator clicks "thumb up" button again.
-
-  Note that mobile client is designed to be managed by webapp moderator on purpose to facilitate group discussion.
-  Mobile client cannot go in and out of voting mode on its own.
-
-# Featurettes 
-  
-  - App tracks connectivity status in idea submission screen. If network lost/disabled, titlebar goes red.
-  - App tracks switching channels in webapp and reads/writes post-its accordingly
-  - App indicates change of the channel by alternating post-it backgrounds
-  - App tracks changes to post-its on webscreen. Editing or deleting a post-it updates mobile app while voting
-  - App prevents the user from joining a non-existent brainstorm (by entering code not in the database)
-  - App uses flashing animation and chime sound to indicate recording status
-  - App uses FT linear indicator to show network activity indicator when submitting an idea (works on iphone X)
-  - App uses curling animation to show the post-it was successfully saved in backend
-   
---------------
- 
- # Large APIs in use:
-    - **SIRIKit**
-    - **AVFoundation**
-    - **AVFoundation**
-    - **Google Firebase**
-
- # Other IOS functions:
-    - **NSNotifications**
-    - **NWPathMonitor**
-    - **URL scheme** (com.thundr://session?code=CODE)
-
---------------
-  # Build:
-    
-      This project uses cocoa pods, run 'pod install' to fill dependencies
-      Use Client.xcworkspace to build this project
-
---------------
-  # Attribitions:
-  
-        Project uses code snippets from Abhilash KM for QR scanning https:github.com/abhimuralidharan
-        Voice recognition code is modeled largely Jeff Rames voice tutorial, https:www.raywenderlich.com
-        Firebase pod is by Google Inc, FTLinearActivity pod is by Ortwin Gentz, FutureTap Gmbh.
-        Dismiss keyboard extension uses technique discussed on stackexchange, no author could be found.
+  Try a few existing page codes - MPUZKX, MLZRFQ, NFRHMO.
 
 
-
-.
